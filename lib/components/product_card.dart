@@ -1,0 +1,164 @@
+import 'package:commerce_hub/services/database/product_database_helper.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logger/logger.dart';
+import '../constants.dart';
+import 'package:commerce_hub/models/Product.dart';
+
+class ProductCard extends StatelessWidget {
+  final String productId;
+  final GestureTapCallback press;
+  const ProductCard({
+    Key key,
+    @required this.productId,
+    @required this.press,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: press,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          border: Border.all(color: kTextColor.withOpacity(0.15)),
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+          child: FutureBuilder<Product>(
+            future: ProductDatabaseHelper().getProductWithID(productId),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final Product product = snapshot.data;
+                return buildProductCardItems(product);
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              } else if (snapshot.hasError) {
+                final error = snapshot.error.toString();
+                Logger().e(error);
+              }
+              return Center(
+                child: Icon(
+                  Icons.error,
+                  color: kTextColor,
+                  size: 60,
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Column buildProductCardItems(Product product) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Flexible(
+          flex: 2,
+          child: Container(
+            child: Image.network(
+              product.images[0],
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        SizedBox(height: 10),
+        Flexible(
+          flex: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                flex: 2,
+                child: Text(
+                  "${product.title}\n",
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              SizedBox(height: 1),
+              FittedBox(
+                child: Flexible(
+                  flex: 1,
+                  child: Text(
+                    "Location: ${product.location}\n",
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+              SizedBox(height: 0.5),
+              Flexible(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      flex: 5,
+                      child: Text.rich(
+                        TextSpan(
+                          text: "\N ${product.discountPrice}\n",
+                          style: TextStyle(
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "\N${product.originalPrice}",
+                              style: TextStyle(
+                                decoration: TextDecoration.lineThrough,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 3,
+                      child: Stack(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/DiscountTag.svg",
+                            color: kPrimaryColor,
+                          ),
+                          Center(
+                            child: Text(
+                              "${product.calculatePercentageDiscount()}%\nOff",
+                              style: TextStyle(
+                                fontSize: 8,
+                                fontWeight: FontWeight.w900,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
