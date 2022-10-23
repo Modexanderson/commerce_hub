@@ -490,7 +490,7 @@ class _EditProductFormState extends State<EditProductForm> {
       controller: originalPriceFieldController,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        hintText: "e.g., N5,000",
+        hintText: "e.g., ₦5,000",
         labelText: "Original Price (in Naira)",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
@@ -509,7 +509,7 @@ class _EditProductFormState extends State<EditProductForm> {
       controller: discountPriceFieldController,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        hintText: "e.g., N5000",
+        hintText: "e.g., ₦5000",
         labelText: "Discount Price (in Naira)",
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),

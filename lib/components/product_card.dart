@@ -81,6 +81,7 @@ class ProductCard extends StatelessWidget {
                   "${product.title}\n",
                   style: TextStyle(
                     fontSize: 13,
+                    overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.bold,
                   ),
                   maxLines: 2,
@@ -89,40 +90,40 @@ class ProductCard extends StatelessWidget {
               ),
               SizedBox(height: 1),
               FittedBox(
-                child: Flexible(
-                  flex: 1,
-                  child: Text(
-                    "Location: ${product.location}\n",
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                child: Text(
+                  "Location: ${product.location}\n",
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               SizedBox(height: 0.5),
-              Flexible(
-                flex: 2,
+              Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Flexible(
-                      flex: 5,
+                    Expanded(
                       child: Text.rich(
                         TextSpan(
-                          text: "\N ${product.discountPrice}\n",
+                          text: "\₦ ${product.discountPrice}\n",
                           style: TextStyle(
                             color: kPrimaryColor,
+                    overflow: TextOverflow.ellipsis,
+
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
                           children: [
                             TextSpan(
-                              text: "\N${product.originalPrice}",
+                              text: "\₦${product.originalPrice}",
+                              
                               style: TextStyle(
                                 decoration: TextDecoration.lineThrough,
+                    overflow: TextOverflow.ellipsis,
+
                                 fontWeight: FontWeight.normal,
                                 fontSize: 11,
                               ),
@@ -131,8 +132,7 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Flexible(
-                      flex: 3,
+                    Expanded(
                       child: Stack(
                         children: [
                           SvgPicture.asset(
@@ -147,6 +147,8 @@ class ProductCard extends StatelessWidget {
                                 fontWeight: FontWeight.w900,
                               ),
                               textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+
                             ),
                           ),
                         ],
