@@ -83,10 +83,9 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: refreshPage,
-        child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+      child: SingleChildScrollView(
+        child: RefreshIndicator(
+          onRefresh: refreshPage,
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(screenPadding)),
@@ -94,7 +93,7 @@ class _BodyState extends State<Body> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(height: getProportionateScreenHeight(15)),
+                SizedBox(height: getProportionateScreenHeight(5)),
                 HomeHeader(
                   onSearchSubmitted: (value) async {
                     final query = value.toString();
@@ -192,11 +191,11 @@ class _BodyState extends State<Body> {
                     );
                   },
                 ),
-                SizedBox(height: getProportionateScreenHeight(15)),
+                // SizedBox(height: getProportionateScreenHeight(5)),
                 SizedBox(
                   height: SizeConfig.screenHeight * 0.1,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       physics: BouncingScrollPhysics(),
@@ -226,7 +225,6 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                 ),
-                SizedBox(height: getProportionateScreenHeight(20)),
                 // SizedBox(
                 //   height: SizeConfig.screenHeight * 0.5,
                 //   child: ProductsSection(
@@ -236,11 +234,11 @@ class _BodyState extends State<Body> {
                 //     onProductCardTapped: onProductCardTapped,
                 //   ),
                 // ),
-                SizedBox(height: getProportionateScreenHeight(20)),
+                // SizedBox(height: getProportionateScreenHeight(5)),
                 Ads(),
-                SizedBox(height: getProportionateScreenHeight(5)),
+                // SizedBox(height: getProportionateScreenHeight(5)),
                 SizedBox(
-                  height: SizeConfig.screenHeight * 0.8,
+                  height: SizeConfig.screenHeight * 0.73,
                   child: ProductsSection(
                     sectionTitle: "Explore All Products",
                     productsStreamController: allProductsStream,
@@ -248,9 +246,9 @@ class _BodyState extends State<Body> {
                     onProductCardTapped: onProductCardTapped,
                   ),
                 ),
-                SizedBox(height: getProportionateScreenHeight(20)),
-                Ads(),
-                SizedBox(height: getProportionateScreenHeight(80)),
+                // SizedBox(height: getProportionateScreenHeight(20)),
+                // Ads(),
+                // SizedBox(height: getProportionateScreenHeight(80)),
               ],
             ),
           ),

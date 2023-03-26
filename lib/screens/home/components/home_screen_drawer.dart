@@ -207,6 +207,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
 
   UserAccountsDrawerHeader buildUserAccountsHeader(User user) {
     return UserAccountsDrawerHeader(
+      decoration: BoxDecoration(color: kPrimaryColor),
       margin: EdgeInsets.zero,
       accountEmail: Text(
         user.email ?? "No Email",

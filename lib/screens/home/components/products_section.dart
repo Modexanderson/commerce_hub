@@ -38,7 +38,7 @@ class ProductsSection extends StatelessWidget {
             title: sectionTitle,
             press: () {},
           ),
-          SizedBox(height: getProportionateScreenHeight(15)),
+          SizedBox(height: getProportionateScreenHeight(5)),
           Expanded(
             child: buildProductsList(),
           ),
@@ -80,39 +80,43 @@ class ProductsSection extends StatelessWidget {
   }
 
   Widget buildProductGrid(List<String> productsId) {
-    return StaggeredGridView.countBuilder(
-        staggeredTileBuilder: (index) =>
-            StaggeredTile.count(1, index.isEven ? 2 : 1.7),
-        mainAxisSpacing: 4.0,
-        crossAxisCount: 2,
-        crossAxisSpacing: 4.0,
-        itemCount: productsId.length,
-        itemBuilder: (context, index) {
-          return ProductCard(
-            productId: productsId[index],
-            press: () {
-              onProductCardTapped.call(productsId[index]);
-            },
-          );
-        });
+    return 
+    GridView.builder(
+    shrinkWrap: true,
+    physics: BouncingScrollPhysics(),
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 1,
+      childAspectRatio: 0.7,
+      crossAxisSpacing: 4,
+      mainAxisSpacing: 20,
+    ),
+    itemCount: productsId.length,
+    itemBuilder: (context, index) {
+      return ProductCard(
+        productId: productsId[index],
+        press: () {
+          onProductCardTapped.call(productsId[index]);
+        },
+      );
+    },
+  );
+    // StaggeredGridView.countBuilder(
+    //     staggeredTileBuilder: (index) =>
+    //         StaggeredTile.count(1, 
+    //         index.isEven ? 2 : 1.7
+    //         ),
+    //     mainAxisSpacing: 20,
+    //     crossAxisCount: 1,
+    //     // crossAxisSpacing: 4.0,
+    //     itemCount: productsId.length,
+    //     itemBuilder: (context, index) {
+    //       return ProductCard(
+    //         productId: productsId[index],
+    //         press: () {
+    //           onProductCardTapped.call(productsId[index]);
+    //         },
+    //       );
+    //     });
   }
-  // GridView.builder(
-  //   shrinkWrap: true,
-  //   physics: BouncingScrollPhysics(),
-  //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //     crossAxisCount: 2,
-  //     childAspectRatio: 0.7,
-  //     crossAxisSpacing: 4,
-  //     mainAxisSpacing: 4,
-  //   ),
-  //   itemCount: productsId.length,
-  //   itemBuilder: (context, index) {
-  //     return ProductCard(
-  //       productId: productsId[index],
-  //       press: () {
-  //         onProductCardTapped.call(productsId[index]);
-  //       },
-  //     );
-  //   },
-  // );
+  
 }

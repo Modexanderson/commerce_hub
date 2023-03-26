@@ -93,9 +93,9 @@ class Body extends StatelessWidget {
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 1,
                 childAspectRatio: 0.7,
-                crossAxisSpacing: 4,
+                // crossAxisSpacing: 4,
                 mainAxisSpacing: 4,
               ),
               itemCount: searchResultProductsId.length,

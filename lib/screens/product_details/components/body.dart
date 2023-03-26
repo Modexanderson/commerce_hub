@@ -34,10 +34,10 @@ class Body extends StatelessWidget {
                 return Column(
                   children: [
                     ProductImages(product: product),
-                    SizedBox(height: getProportionateScreenHeight(20)),
+                    SizedBox(height: getProportionateScreenHeight(5)),
                     ProductActionsSection(product: product),
-                    SizedBox(height: getProportionateScreenHeight(20)),
-                    SizedBox(height: getProportionateScreenHeight(20)),
+                    SizedBox(height: getProportionateScreenHeight(5)),
+                    SizedBox(height: getProportionateScreenHeight(5)),
                     ProductReviewsSection(product: product),
                     SizedBox(height: getProportionateScreenHeight(100)),
                     Ads(),

@@ -27,9 +27,12 @@ class ProductCard extends StatelessWidget {
               bottomRight: Radius.circular(10)),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+          padding: const EdgeInsets.all(10),
+          // padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
           child: FutureBuilder<Product>(
+
             future: ProductDatabaseHelper().getProductWithID(productId),
+            // future: ProductDatabaseHelper().getProductWithID(productId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final Product product = snapshot.data;
@@ -71,16 +74,16 @@ class ProductCard extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Flexible(
-          flex: 2,
+          flex: 1,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
-                flex: 2,
+                flex: 1,
                 child: Text(
                   "${product.title}\n",
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 20,
                     overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.bold,
                   ),
@@ -93,7 +96,7 @@ class ProductCard extends StatelessWidget {
                 child: Text(
                   "Location: ${product.location}\n",
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                   maxLines: 2,
@@ -143,7 +146,7 @@ class ProductCard extends StatelessWidget {
                             child: Text(
                               "${product.calculatePercentageDiscount()}%\nOff",
                               style: TextStyle(
-                                fontSize: 8,
+                                fontSize: 10,
                                 fontWeight: FontWeight.w900,
                               ),
                               textAlign: TextAlign.center,

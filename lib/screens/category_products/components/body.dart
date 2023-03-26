@@ -58,16 +58,16 @@ class _BodyState extends State<Body> {
               width: double.infinity,
               child: Column(
                 children: [
-                  SizedBox(height: getProportionateScreenHeight(20)),
+                  SizedBox(height: getProportionateScreenHeight(5)),
                   buildHeadBar(),
-                  SizedBox(height: getProportionateScreenHeight(20)),
+                  SizedBox(height: getProportionateScreenHeight(5)),
                   Ads(),
-                  SizedBox(height: getProportionateScreenHeight(20)),
+                  SizedBox(height: getProportionateScreenHeight(5)),
                   SizedBox(
                     height: SizeConfig.screenHeight * 0.13,
                     child: buildCategoryBanner(),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(20)),
+                  SizedBox(height: getProportionateScreenHeight(5)),
                   SizedBox(
                     height: SizeConfig.screenHeight * 0.68,
                     child: StreamBuilder<List<String>>(
@@ -104,9 +104,9 @@ class _BodyState extends State<Body> {
                       },
                     ),
                   ),
-                  SizedBox(height: getProportionateScreenHeight(20)),
-                  Ads(),
-                  SizedBox(height: getProportionateScreenHeight(20)),
+                  // SizedBox(height: getProportionateScreenHeight(20)),
+                  // Ads(),
+                  // SizedBox(height: getProportionateScreenHeight(20)),
                 ],
               ),
             ),
@@ -212,7 +212,7 @@ class _BodyState extends State<Body> {
   Widget buildProductsGrid(List<String> productsId) {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: 16,
+        // vertical: 16,
         horizontal: 8,
       ),
       decoration: BoxDecoration(
@@ -244,9 +244,9 @@ class _BodyState extends State<Body> {
           );
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+          crossAxisCount: 1,
           childAspectRatio: 0.75,
-          crossAxisSpacing: 2,
+          // crossAxisSpacing: 2,
           mainAxisSpacing: 8,
         ),
         padding: EdgeInsets.symmetric(

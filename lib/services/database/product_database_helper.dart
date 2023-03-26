@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commerce_hub/models/OrderedProduct.dart';
 import 'package:commerce_hub/models/Product.dart';
 import 'package:commerce_hub/models/Review.dart';
 import 'package:commerce_hub/services/authentification/authentification_service.dart';
@@ -130,6 +131,24 @@ class ProductDatabaseHelper {
       yield reviews;
     }
   }
+
+
+// Retrieve a product with the specified ID and sort the products by price
+// Future<Product> getProductWithIDSortedByPrice(String productId) async {
+//   final querySnapshot = await FirebaseFirestore.instance
+//       .collection(PRODUCTS_COLLECTION_NAME)
+//       .orderBy('createdAt', descending: true)
+//       .get();
+
+//   final productDocs = querySnapshot.docs;
+//   final productDoc = productDocs.firstWhere((doc) => doc.id == productId, orElse: () => null);
+  
+//   if (productDoc != null) {
+//     return Product.fromMap(productDoc.data(), id: productDoc.id);
+//   }
+
+//   return null;
+// }
 
   Future<Product> getProductWithID(String productId) async {
     final docSnapshot = await firestore

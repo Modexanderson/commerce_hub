@@ -5,10 +5,12 @@ import '../size_config.dart';
 
 class RoundedIconButton extends StatelessWidget {
   final IconData iconData;
+  final Color color;
   final GestureTapCallback press;
   const RoundedIconButton({
     Key key,
     @required this.iconData,
+    this.color,
     @required this.press,
   }) : super(key: key);
 
@@ -32,6 +34,7 @@ class RoundedIconButton extends StatelessWidget {
         onPressed: press,
         child: Icon(
           iconData,
+          color: color,
         ),
       ),
     );
