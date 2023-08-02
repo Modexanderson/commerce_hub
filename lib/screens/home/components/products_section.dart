@@ -3,7 +3,7 @@ import 'package:commerce_hub/components/product_card.dart';
 import 'package:commerce_hub/screens/home/components/section_tile.dart';
 import 'package:commerce_hub/services/data_streams/data_stream.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:logger/logger.dart';
 
 import '../../../size_config.dart';
@@ -14,11 +14,11 @@ class ProductsSection extends StatelessWidget {
   final String emptyListMessage;
   final Function onProductCardTapped;
   const ProductsSection({
-    Key key,
-    @required this.sectionTitle,
-    @required this.productsStreamController,
+    Key? key,
+    required this.sectionTitle,
+    required this.productsStreamController,
     this.emptyListMessage = "No Products to show here",
-    @required this.onProductCardTapped,
+    required this.onProductCardTapped,
   }) : super(key: key);
 
   @override
@@ -48,11 +48,12 @@ class ProductsSection extends StatelessWidget {
   }
 
   Widget buildProductsList() {
-    return StreamBuilder<List<String>>(
+    return StreamBuilder<dynamic>(
       stream: productsStreamController.stream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.length == 0) {
+          List<String> dataList = snapshot.data;
+          if (dataList.length == 0) {
             return Center(
               child: NothingToShowContainer(
                 secondaryMessage: emptyListMessage,
@@ -80,29 +81,28 @@ class ProductsSection extends StatelessWidget {
   }
 
   Widget buildProductGrid(List<String> productsId) {
-    return 
-    GridView.builder(
-    shrinkWrap: true,
-    physics: BouncingScrollPhysics(),
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 1,
-      childAspectRatio: 0.7,
-      crossAxisSpacing: 4,
-      mainAxisSpacing: 20,
-    ),
-    itemCount: productsId.length,
-    itemBuilder: (context, index) {
-      return ProductCard(
-        productId: productsId[index],
-        press: () {
-          onProductCardTapped.call(productsId[index]);
-        },
-      );
-    },
-  );
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: BouncingScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 1,
+        childAspectRatio: 0.7,
+        crossAxisSpacing: 4,
+        mainAxisSpacing: 20,
+      ),
+      itemCount: productsId.length,
+      itemBuilder: (context, index) {
+        return ProductCard(
+          productId: productsId[index],
+          press: () {
+            onProductCardTapped.call(productsId[index]);
+          },
+        );
+      },
+    );
     // StaggeredGridView.countBuilder(
     //     staggeredTileBuilder: (index) =>
-    //         StaggeredTile.count(1, 
+    //         StaggeredTile.count(1,
     //         index.isEven ? 2 : 1.7
     //         ),
     //     mainAxisSpacing: 20,
@@ -118,5 +118,4 @@ class ProductsSection extends StatelessWidget {
     //       );
     //     });
   }
-  
 }

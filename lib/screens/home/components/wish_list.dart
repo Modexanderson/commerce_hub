@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'products_section.dart';
 
 class WishList extends StatefulWidget {
-  const WishList({Key key}) : super(key: key);
+  const WishList({Key? key}) : super(key: key);
 
   @override
   State<WishList> createState() => _WishListState();

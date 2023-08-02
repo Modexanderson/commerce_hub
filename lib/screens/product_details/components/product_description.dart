@@ -8,8 +8,8 @@ import 'expandable_text.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
-    Key key,
-    @required this.product,
+    Key? key,
+    required this.product,
   }) : super(key: key);
 
   final Product product;
@@ -58,7 +58,6 @@ class ProductDescription extends StatelessWidget {
                             text: "\n\₦${product.originalPrice}",
                             style: TextStyle(
                               decoration: TextDecoration.lineThrough,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 16,
                             ),
@@ -79,7 +78,6 @@ class ProductDescription extends StatelessWidget {
                           child: Text(
                             "${product.calculatePercentageDiscount()}%\nOff",
                             style: TextStyle(
-                             
                               fontSize: getProportionateScreenHeight(15),
                               fontWeight: FontWeight.w900,
                             ),
@@ -95,7 +93,7 @@ class ProductDescription extends StatelessWidget {
             const SizedBox(height: 16),
             ExpandableText(
               title: "Highlights",
-              content: product.highlights,
+              content: product.highlights!,
             ),
             const SizedBox(height: 16),
             ExpandableText(
@@ -105,7 +103,7 @@ class ProductDescription extends StatelessWidget {
             const SizedBox(height: 16),
             ExpandableText(
               title: "Description",
-              content: product.description,
+              content: product.description!,
             ),
             const SizedBox(height: 16),
             Text.rich(

@@ -11,8 +11,7 @@ import 'package:logger/logger.dart';
 import '../../../utils.dart';
 
 class AddToCartFAB extends StatelessWidget {
-  const AddToCartFAB(
-      {Key key, @required this.productId, @required this.product})
+  const AddToCartFAB({Key? key, required this.productId, required this.product})
       : super(key: key);
 
   final String productId;
@@ -49,7 +48,7 @@ class AddToCartFAB extends StatelessWidget {
                   return;
                 }
                 bool addedSuccessfully = false;
-                String snackbarMessage;
+                String? snackbarMessage;
                 try {
                   addedSuccessfully =
                       await UserDatabaseHelper().addProductToCart(productId);
@@ -68,7 +67,7 @@ class AddToCartFAB extends StatelessWidget {
                   Logger().i(snackbarMessage);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(snackbarMessage),
+                      content: Text(snackbarMessage!),
                     ),
                   );
                 }
@@ -94,7 +93,7 @@ class AddToCartFAB extends StatelessWidget {
                 bool whatsapp = await FlutterLaunch.hasApp(name: 'whatsapp');
                 if (whatsapp) {
                   FlutterLaunch.launchWhatsapp(
-                      phone: '234' + product.phone.substring(1),
+                      phone: '234' + product.phone!.substring(1),
                       message:
                           "Hello, I would like to buy your product, on Commerce hub");
                   print('Opened');

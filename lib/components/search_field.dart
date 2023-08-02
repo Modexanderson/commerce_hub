@@ -6,8 +6,8 @@ import '../size_config.dart';
 class SearchField extends StatelessWidget {
   final Function onSubmit;
   const SearchField({
-    Key key,
-    @required this.onSubmit,
+    Key? key,
+    required this.onSubmit,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,9 @@ class SearchField extends StatelessWidget {
               horizontal: getProportionateScreenWidth(20),
               vertical: getProportionateScreenWidth(9)),
         ),
-        onSubmitted: onSubmit,
+        onSubmitted: (value) {
+          onSubmit();
+        },
       ),
     );
   }

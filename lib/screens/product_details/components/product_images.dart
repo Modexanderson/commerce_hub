@@ -1,16 +1,17 @@
 import 'package:commerce_hub/models/Product.dart';
 import 'package:commerce_hub/screens/product_details/provider_models/ProductImageSwiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swipe_detector/flutter_swipe_detector.dart';
 import 'package:provider/provider.dart';
-import 'package:swipedetector/swipedetector.dart';
+// import 'package:swipedetector/swipedetector.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class ProductImages extends StatelessWidget {
   const ProductImages({
-    Key key,
-    @required this.product,
+    Key? key,
+    required this.product,
   }) : super(key: key);
 
   final Product product;
@@ -24,17 +25,17 @@ class ProductImages extends StatelessWidget {
           return Column(
             children: [
               SwipeDetector(
-                onSwipeLeft: () {
+                onSwipeLeft: (details) {
                   productImagesSwiper.currentImageIndex++;
                   productImagesSwiper.currentImageIndex %=
-                      product.images.length;
+                      product.images!.length;
                 },
-                onSwipeRight: () {
+                onSwipeRight: (details) {
                   productImagesSwiper.currentImageIndex--;
                   productImagesSwiper.currentImageIndex +=
-                      product.images.length;
+                      product.images!.length;
                   productImagesSwiper.currentImageIndex %=
-                      product.images.length;
+                      product.images!.length;
                 },
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -45,10 +46,10 @@ class ProductImages extends StatelessWidget {
                     ),
                   ),
                   child: SizedBox(
-                    height: SizeConfig.screenHeight * 0.50,
-                    width: SizeConfig.screenWidth * 0.85,
+                    height: SizeConfig.screenHeight! * 0.50,
+                    width: SizeConfig.screenWidth! * 0.85,
                     child: Image.network(
-                      product.images[productImagesSwiper.currentImageIndex],
+                      product.images![productImagesSwiper.currentImageIndex],
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -59,7 +60,7 @@ class ProductImages extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ...List.generate(
-                    product.images.length,
+                    product.images!.length,
                     (index) =>
                         buildSmallPreview(productImagesSwiper, index: index),
                   ),
@@ -73,7 +74,7 @@ class ProductImages extends StatelessWidget {
   }
 
   Widget buildSmallPreview(ProductImageSwiper productImagesSwiper,
-      {@required int index}) {
+      {required int index}) {
     return GestureDetector(
       onTap: () {
         productImagesSwiper.currentImageIndex = index;
@@ -92,7 +93,7 @@ class ProductImages extends StatelessWidget {
                   ? kPrimaryColor
                   : Colors.transparent),
         ),
-        child: Image.network(product.images[index]),
+        child: Image.network(product.images![index]),
       ),
     );
   }

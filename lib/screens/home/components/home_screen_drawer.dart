@@ -19,7 +19,7 @@ import '../../change_display_name/change_display_name_screen.dart';
 
 class HomeScreenDrawer extends StatefulWidget {
   const HomeScreenDrawer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -49,12 +49,12 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: [
-          StreamBuilder<User>(
+          StreamBuilder<User?>(
               stream: AuthentificationService().userChanges,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final user = snapshot.data;
-                  return buildUserAccountsHeader(user);
+                  return buildUserAccountsHeader(user!);
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
                   return Center(
@@ -227,7 +227,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return CircleAvatar(
-              backgroundImage: NetworkImage(snapshot.data),
+              backgroundImage: NetworkImage(snapshot.data.toString()),
             );
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -381,8 +381,12 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
               }
               return;
             }
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EditProductScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditProductScreen(
+                          productToEdit: null,
+                        )));
           },
         ),
         ListTile(

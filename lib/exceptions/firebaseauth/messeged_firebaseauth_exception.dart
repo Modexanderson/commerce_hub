@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class MessagedFirebaseAuthException extends FirebaseAuthException {
-  String _message;
-  MessagedFirebaseAuthException(this._message);
+  final _message;
+  MessagedFirebaseAuthException(this._message) : super(code: _message);
   String get message => _message;
   @override
   String toString() {

@@ -12,20 +12,20 @@ class Address extends Model {
   static const String RECEIVER_KEY = "receiver";
   static const String PHONE_KEY = "phone";
 
-  String title;
-  String receiver;
+  final title;
+  final receiver;
 
-  String addresLine1;
-  String addressLine2;
-  String city;
-  String district;
-  String state;
-  String landmark;
-  String pincode;
-  String phone;
+  final addresLine1;
+  final addressLine2;
+  final city;
+  final district;
+  final state;
+  final landmark;
+  final pincode;
+  final phone;
 
   Address({
-    String id,
+    final id,
     this.title,
     this.receiver,
     this.addresLine1,
@@ -38,7 +38,7 @@ class Address extends Model {
     this.phone,
   }) : super(id);
 
-  factory Address.fromMap(Map<String, dynamic> map, {String id}) {
+  factory Address.fromMap(Map<String, dynamic> map, {String? id}) {
     return Address(
       id: id,
       title: map[TITLE_KEY],

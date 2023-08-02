@@ -16,8 +16,8 @@ class ProductActionsSection extends StatelessWidget {
   final Product product;
 
   const ProductActionsSection({
-    Key key,
-    @required this.product,
+    Key? key,
+    required this.product,
   }) : super(key: key);
 
   @override

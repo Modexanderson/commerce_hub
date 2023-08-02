@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commerce_hub/components/async_progress_dialog.dart';
 import 'package:commerce_hub/components/default_button.dart';
 import 'package:commerce_hub/constants.dart';
@@ -69,15 +70,26 @@ class Body extends StatelessWidget {
           final error = snapshot.error;
           Logger().w(error.toString());
         }
-        ImageProvider backImage;
+        ImageProvider? backImage;
         if (bodyState.chosenImage != null) {
-          backImage = MemoryImage(bodyState.chosenImage.readAsBytesSync());
+          backImage = MemoryImage(bodyState.chosenImage!.readAsBytesSync());
         } else if (snapshot.hasData && snapshot.data != null) {
-          final String url = snapshot.data.data()[UserDatabaseHelper.DP_KEY];
-          if (url != null) backImage = NetworkImage(url);
+          // final dynamic data = snapshot.data;
+          // final String? url = data[UserDatabaseHelper.DP_KEY];
+          // if (url != null) backImage = NetworkImage(url);
+          final DocumentSnapshot<Map<String, dynamic>>? data =
+              snapshot.data as DocumentSnapshot<Map<String, dynamic>>?;
+          final Map<String, dynamic>? userData = data?.data();
+          if (userData != null &&
+              userData.containsKey(UserDatabaseHelper.DP_KEY)) {
+            final String? url = userData[UserDatabaseHelper.DP_KEY];
+            if (url != null) {
+              backImage = NetworkImage(url);
+            }
+          }
         }
         return CircleAvatar(
-          radius: SizeConfig.screenWidth * 0.3,
+          radius: SizeConfig.screenWidth! * 0.3,
           backgroundColor: kTextColor.withOpacity(0.5),
           backgroundImage: backImage ?? null,
         );
@@ -86,8 +98,8 @@ class Body extends StatelessWidget {
   }
 
   void getImageFromUser(BuildContext context, ChosenImage bodyState) async {
-    String path;
-    String snackbarMessage;
+    String? path;
+    String? snackbarMessage;
     try {
       path = await choseImageFromLocalFiles(context);
       if (path == null) {
@@ -148,10 +160,10 @@ class Body extends StatelessWidget {
   Future<void> uploadImageToFirestorage(
       BuildContext context, ChosenImage bodyState) async {
     bool uploadDisplayPictureStatus = false;
-    String snackbarMessage;
+    String? snackbarMessage;
     try {
       final downloadUrl = await FirestoreFilesAccess().uploadFileToPath(
-          bodyState.chosenImage,
+          bodyState.chosenImage!,
           UserDatabaseHelper().getPathForCurrentUserDisplayPicture());
 
       uploadDisplayPictureStatus = await UserDatabaseHelper()
@@ -171,7 +183,7 @@ class Body extends StatelessWidget {
       Logger().i(snackbarMessage);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(snackbarMessage),
+          content: Text(snackbarMessage!),
         ),
       );
     }
@@ -202,7 +214,7 @@ class Body extends StatelessWidget {
   Future<void> removeImageFromFirestore(
       BuildContext context, ChosenImage bodyState) async {
     bool status = false;
-    String snackbarMessage;
+    String? snackbarMessage;
     try {
       bool fileDeletedFromFirestore = false;
       fileDeletedFromFirestore = await FirestoreFilesAccess()
@@ -227,7 +239,7 @@ class Body extends StatelessWidget {
       Logger().i(snackbarMessage);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(snackbarMessage),
+          content: Text(snackbarMessage!),
         ),
       );
     }

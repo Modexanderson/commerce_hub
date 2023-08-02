@@ -4,17 +4,17 @@ class OrderedProduct extends Model {
   static const String PRODUCT_UID_KEY = "product_uid";
   static const String ORDER_DATE_KEY = "order_date";
 
-  String productUid;
-  String orderDate;
+  String? productUid;
+  String? orderDate;
   OrderedProduct(
-    String id, {
+    String? id, {
     this.productUid,
     this.orderDate,
-  }) : super(id);
+  }) : super(id!);
 
-  factory OrderedProduct.fromMap(Map<String, dynamic> map, {String id}) {
+  factory OrderedProduct.fromMap(Map<String, dynamic> map, {String? id}) {
     return OrderedProduct(
-      id,
+      id!,
       productUid: map[PRODUCT_UID_KEY],
       orderDate: map[ORDER_DATE_KEY],
     );

@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'address_details_form.dart';
 
 class Body extends StatelessWidget {
-  final String addressIdToEdit;
+  final String? addressIdToEdit;
 
-  const Body({Key key, this.addressIdToEdit}) : super(key: key);
+  const Body({Key? key, this.addressIdToEdit}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
                       )
                     : FutureBuilder<Address>(
                         future: UserDatabaseHelper()
-                            .getAddressFromId(addressIdToEdit),
+                            .getAddressFromId(addressIdToEdit!),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             final address = snapshot.data;

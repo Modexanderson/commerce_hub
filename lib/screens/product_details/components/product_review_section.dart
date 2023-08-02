@@ -12,8 +12,8 @@ import 'review_box.dart';
 
 class ProductReviewsSection extends StatelessWidget {
   const ProductReviewsSection({
-    Key key,
-    @required this.product,
+    Key? key,
+    required this.product,
   }) : super(key: key);
 
   final Product product;
@@ -32,7 +32,6 @@ class ProductReviewsSection extends StatelessWidget {
                   "Product Reviews",
                   style: TextStyle(
                     fontSize: 21,
-                   
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -44,7 +43,7 @@ class ProductReviewsSection extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final reviewsList = snapshot.data;
-                        if (reviewsList.length == 0) {
+                        if (reviewsList!.length == 0) {
                           return Center(
                             child: Column(
                               children: [
@@ -85,7 +84,6 @@ class ProductReviewsSection extends StatelessWidget {
                       return Center(
                         child: Icon(
                           Icons.error,
-                          
                           size: 50,
                         ),
                       );
@@ -97,7 +95,7 @@ class ProductReviewsSection extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.topCenter,
-            child: buildProductRatingWidget(product.rating),
+            child: buildProductRatingWidget(product.rating!),
           ),
         ],
       ),
@@ -119,7 +117,6 @@ class ProductReviewsSection extends StatelessWidget {
             child: Text(
               "$rating",
               style: TextStyle(
-                
                 fontWeight: FontWeight.w900,
                 fontSize: getProportionateScreenWidth(16),
               ),
@@ -128,7 +125,6 @@ class ProductReviewsSection extends StatelessWidget {
           SizedBox(width: 5),
           Icon(
             Icons.star,
-            
           ),
         ],
       ),

@@ -13,11 +13,11 @@ class Body extends StatelessWidget {
   final String productId;
 
   const Body({
-    Key key,
-    @required this.productId,
+    Key? key,
+    required this.productId,
     this.phone,
   }) : super(key: key);
-  final int phone;
+  final int? phone;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,14 +26,14 @@ class Body extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: getProportionateScreenWidth(screenPadding)),
-          child: FutureBuilder<Product>(
+          child: FutureBuilder<Product?>(
             future: ProductDatabaseHelper().getProductWithID(productId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final product = snapshot.data;
                 return Column(
                   children: [
-                    ProductImages(product: product),
+                    ProductImages(product: product!),
                     SizedBox(height: getProportionateScreenHeight(5)),
                     ProductActionsSection(product: product),
                     SizedBox(height: getProportionateScreenHeight(5)),

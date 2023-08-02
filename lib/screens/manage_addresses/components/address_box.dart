@@ -6,8 +6,8 @@ import 'package:logger/logger.dart';
 
 class AddressBox extends StatelessWidget {
   const AddressBox({
-    Key key,
-    @required this.addressId,
+    Key? key,
+    required this.addressId,
   }) : super(key: key);
 
   final String addressId;
@@ -38,7 +38,7 @@ class AddressBox extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${address.title}",
+                            "${address?.title}",
                             style: TextStyle(
                               fontSize: 22,
                               color: Colors.black,
@@ -47,55 +47,55 @@ class AddressBox extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            "${address.receiver}",
+                            "${address?.receiver}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            "${address.addresLine1}",
+                            "${address?.addresLine1}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            "${address.addressLine2}",
+                            "${address?.addressLine2}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            "City: ${address.city}",
+                            "City: ${address?.city}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            "District: ${address.district}",
+                            "District: ${address?.district}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            "State: ${address.state}",
+                            "State: ${address?.state}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            "Landmark: ${address.landmark}",
+                            "Landmark: ${address?.landmark}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            "PIN: ${address.pincode}",
+                            "PIN: ${address?.pincode}",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
                           Text(
-                            "Phone: ${address.phone}",
+                            "Phone: ${address?.phone}",
                             style: TextStyle(
                               fontSize: 16,
                             ),

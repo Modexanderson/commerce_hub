@@ -16,7 +16,7 @@ class Body extends StatelessWidget {
             width: double.infinity,
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                SizedBox(height: SizeConfig.screenHeight! * 0.04),
                 Text(
                   "Forgot Password",
                   style: headingStyle,
@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
                   "Please enter your email and we will send \nyou a link to return to your account",
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.1),
+                SizedBox(height: SizeConfig.screenHeight! * 0.1),
                 ForgotPasswordForm(),
               ],
             ),

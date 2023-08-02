@@ -4,11 +4,11 @@ import '../constants.dart';
 import '../size_config.dart';
 
 class DefaultButton extends StatelessWidget {
-  final String text;
-  final Function press;
+  final String? text;
+  final Function? press;
   final Color color;
   const DefaultButton({
-    Key key,
+    Key? key,
     this.text,
     this.press,
     this.color = kPrimaryColor,
@@ -21,14 +21,17 @@ class DefaultButton extends StatelessWidget {
       height: getProportionateScreenHeight(56),
       child: TextButton(
         style: TextButton.styleFrom(
-    backgroundColor: color,),
+          backgroundColor: color,
+        ),
         // color: color,
         // shape: RoundedRectangleBorder(
-          // borderRadius: BorderRadius.circular(20),
+        // borderRadius: BorderRadius.circular(20),
         // ),
-        onPressed: press,
+        onPressed: () {
+          press!();
+        },
         child: Text(
-          text,
+          text!,
           style: TextStyle(
             fontSize: getProportionateScreenWidth(18),
             color: Colors.white,

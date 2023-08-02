@@ -98,7 +98,7 @@ class _BodyState extends State<Body> {
                   onSearchSubmitted: (value) async {
                     final query = value.toString();
                     if (query.length <= 0) return;
-                    List<String> searchedProductsId;
+                    List<dynamic> searchedProductsId;
                     try {
                       searchedProductsId = await ProductDatabaseHelper()
                           .searchInProducts(query.toLowerCase());
@@ -108,7 +108,8 @@ class _BodyState extends State<Body> {
                           MaterialPageRoute(
                             builder: (context) => SearchResultScreen(
                               searchQuery: query,
-                              searchResultProductsId: searchedProductsId,
+                              searchResultProductsId:
+                                  searchedProductsId as List<String>,
                               searchIn: "All Products",
                               phone: null,
                             ),
@@ -193,7 +194,7 @@ class _BodyState extends State<Body> {
                 ),
                 // SizedBox(height: getProportionateScreenHeight(5)),
                 SizedBox(
-                  height: SizeConfig.screenHeight * 0.1,
+                  height: SizeConfig.screenHeight! * 0.1,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: ListView(
@@ -238,7 +239,7 @@ class _BodyState extends State<Body> {
                 Ads(),
                 // SizedBox(height: getProportionateScreenHeight(5)),
                 SizedBox(
-                  height: SizeConfig.screenHeight * 0.73,
+                  height: SizeConfig.screenHeight! * 0.73,
                   child: ProductsSection(
                     sectionTitle: "Explore All Products",
                     productsStreamController: allProductsStream,

@@ -14,19 +14,19 @@ class AsyncProgressDialog extends StatefulWidget {
   final Future future;
 
   /// [BoxDecoration] of [AsyncProgressDialog].
-  final BoxDecoration decoration;
+  final BoxDecoration? decoration;
 
   /// opacity of [AsyncProgressDialog]
   final double opacity;
 
   /// If you want to use custom progress widget set [progress].
-  final Widget progress;
+  final Widget? progress;
 
   /// If you want to use message widget set [message].
-  final Widget message;
+  final Widget? message;
 
   /// On error handler
-  final Function onError;
+  final Function? onError;
 
   AsyncProgressDialog(
     this.future, {
@@ -49,7 +49,7 @@ class _AsyncProgressDialogState extends State<AsyncProgressDialog> {
     }).catchError((e) {
       Navigator.of(context).pop();
       if (widget.onError != null) {
-        widget.onError.call(e);
+        widget.onError!.call(e);
       } else {
         throw e;
       }
@@ -112,7 +112,7 @@ class _AsyncProgressDialogState extends State<AsyncProgressDialog> {
     }
     return Expanded(
       flex: 1,
-      child: widget.message,
+      child: widget.message!,
     );
   }
 }

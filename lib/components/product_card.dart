@@ -9,9 +9,9 @@ class ProductCard extends StatelessWidget {
   final String productId;
   final GestureTapCallback press;
   const ProductCard({
-    Key key,
-    @required this.productId,
-    @required this.press,
+    Key? key,
+    required this.productId,
+    required this.press,
   }) : super(key: key);
 
   @override
@@ -29,13 +29,12 @@ class ProductCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10),
           // padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
-          child: FutureBuilder<Product>(
-
+          child: FutureBuilder<Product?>(
             future: ProductDatabaseHelper().getProductWithID(productId),
             // future: ProductDatabaseHelper().getProductWithID(productId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                final Product product = snapshot.data;
+                final Product product = snapshot.data!;
                 return buildProductCardItems(product);
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -67,7 +66,7 @@ class ProductCard extends StatelessWidget {
           flex: 2,
           child: Container(
             child: Image.network(
-              product.images[0],
+              product.images![0],
               fit: BoxFit.fill,
             ),
           ),
@@ -114,19 +113,16 @@ class ProductCard extends StatelessWidget {
                           text: "\₦ ${product.discountPrice}\n",
                           style: TextStyle(
                             color: kPrimaryColor,
-                    overflow: TextOverflow.ellipsis,
-
+                            overflow: TextOverflow.ellipsis,
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
                           children: [
                             TextSpan(
                               text: "\₦${product.originalPrice}",
-                              
                               style: TextStyle(
                                 decoration: TextDecoration.lineThrough,
-                    overflow: TextOverflow.ellipsis,
-
+                                overflow: TextOverflow.ellipsis,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 11,
                               ),
@@ -150,8 +146,7 @@ class ProductCard extends StatelessWidget {
                                 fontWeight: FontWeight.w900,
                               ),
                               textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],

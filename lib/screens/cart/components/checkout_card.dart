@@ -7,8 +7,8 @@ import '../../../size_config.dart';
 class CheckoutCard extends StatelessWidget {
   final VoidCallback onCheckoutPressed;
   const CheckoutCard({
-    Key key,
-    @required this.onCheckoutPressed,
+    Key? key,
+    required this.onCheckoutPressed,
   }) : super(key: key);
 
   @override

@@ -5,16 +5,16 @@ import '../constants.dart';
 import '../size_config.dart';
 
 class IconButtonWithCounter extends StatelessWidget {
-  final String svgSrc;
-  final Icon icon;
+  final String? svgSrc;
+  final Icon? icon;
   final int numOfItems;
   final GestureTapCallback press;
   const IconButtonWithCounter({
-    Key key,
+    Key? key,
     this.svgSrc,
     this.icon,
     this.numOfItems = 0,
-    @required this.press,
+    required this.press,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,6 @@ class IconButtonWithCounter extends StatelessWidget {
         clipBehavior:
             Clip.none, // makes the stack clip over the overlapping widget
         children: [
-          
           Container(
             padding: EdgeInsets.all(getProportionateScreenWidth(12)),
             width: getProportionateScreenWidth(46),
@@ -35,8 +34,7 @@ class IconButtonWithCounter extends StatelessWidget {
               color: kSecondaryColor.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child:
-            svgSrc != null ? SvgPicture.asset(svgSrc) : icon,
+            child: svgSrc != null ? SvgPicture.asset(svgSrc!) : icon,
           ),
           if (numOfItems > 0)
             Positioned(

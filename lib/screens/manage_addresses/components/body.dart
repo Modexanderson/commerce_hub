@@ -68,8 +68,8 @@ class _BodyState extends State<Body> {
                   ),
                   SizedBox(height: getProportionateScreenHeight(30)),
                   SizedBox(
-                    height: SizeConfig.screenHeight * 0.7,
-                    child: StreamBuilder<List<String>>(
+                    height: SizeConfig.screenHeight! * 0.7,
+                    child: StreamBuilder<dynamic>(
                       stream: addressesStream.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -150,7 +150,7 @@ class _BodyState extends State<Body> {
 
     if (confirmDeletion) {
       bool status = false;
-      String snackbarMessage;
+      String? snackbarMessage;
       try {
         status =
             await UserDatabaseHelper().deleteAddressForCurrentUser(addressId);
@@ -169,7 +169,7 @@ class _BodyState extends State<Body> {
         Logger().i(snackbarMessage);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(snackbarMessage),
+            content: Text(snackbarMessage!),
           ),
         );
       }

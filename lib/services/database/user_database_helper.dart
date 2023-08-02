@@ -21,20 +21,20 @@ class UserDatabaseHelper {
   factory UserDatabaseHelper() {
     return _instance;
   }
-  FirebaseFirestore _firebaseFirestore;
+  FirebaseFirestore? _firebaseFirestore;
   FirebaseFirestore get firestore {
     if (_firebaseFirestore == null) {
       _firebaseFirestore = FirebaseFirestore.instance;
     }
-    return _firebaseFirestore;
+    return _firebaseFirestore!;
   }
 
-  final String phone;
+  final String? phone;
   Future<void> createNewUser(String uid) async {
     await firestore.collection(USERS_COLLECTION_NAME).doc(uid).set({
       DP_KEY: null,
       PHONE_KEY: phone,
-      FAV_PRODUCTS_KEY: List<String>(),
+      FAV_PRODUCTS_KEY: List<String>.empty(),
     });
   }
 
@@ -67,7 +67,7 @@ class UserDatabaseHelper {
     final userDocSnapshot =
         firestore.collection(USERS_COLLECTION_NAME).doc(uid);
     final userDocData = (await userDocSnapshot.get()).data();
-    final favList = userDocData[FAV_PRODUCTS_KEY].cast<String>();
+    final favList = userDocData?[FAV_PRODUCTS_KEY].cast<String>();
     if (favList.contains(productId)) {
       return true;
     } else {
@@ -80,7 +80,7 @@ class UserDatabaseHelper {
     final userDocSnapshot =
         firestore.collection(USERS_COLLECTION_NAME).doc(uid);
     final userDocData = (await userDocSnapshot.get()).data();
-    final favList = userDocData[FAV_PRODUCTS_KEY];
+    final favList = userDocData?[FAV_PRODUCTS_KEY];
     return favList;
   }
 
@@ -109,7 +109,7 @@ class UserDatabaseHelper {
         .doc(uid)
         .collection(ADDRESSES_COLLECTION_NAME)
         .get();
-    final addresses = List<String>();
+    final addresses = List<String>.empty();
     snapshot.docs.forEach((doc) {
       addresses.add(doc.id);
     });
@@ -125,7 +125,7 @@ class UserDatabaseHelper {
         .collection(ADDRESSES_COLLECTION_NAME)
         .doc(id)
         .get();
-    final address = Address.fromMap(doc.data(), id: doc.id);
+    final address = Address.fromMap(doc.data() ?? {}, id: doc.id);
     return address;
   }
 
@@ -169,7 +169,8 @@ class UserDatabaseHelper {
         .collection(CART_COLLECTION_NAME);
     final docRef = cartCollectionRef.doc(id);
     final docSnapshot = await docRef.get();
-    final cartItem = CartItem.fromMap(docSnapshot.data(), id: docSnapshot.id);
+    final cartItem =
+        CartItem.fromMap(docSnapshot.data() ?? {}, id: docSnapshot.id);
     return cartItem;
   }
 
@@ -197,7 +198,7 @@ class UserDatabaseHelper {
         .doc(uid)
         .collection(CART_COLLECTION_NAME)
         .get();
-    List orderedProductsUid = List<String>();
+    List<String> orderedProductsUid = [];
     for (final doc in cartItems.docs) {
       orderedProductsUid.add(doc.id);
       await doc.reference.delete();
@@ -216,7 +217,7 @@ class UserDatabaseHelper {
     for (final doc in cartItems.docs) {
       num itemsCount = doc.data()[CartItem.ITEM_COUNT_KEY];
       final product = await ProductDatabaseHelper().getProductWithID(doc.id);
-      total += (itemsCount * product.discountPrice);
+      total += (itemsCount * product!.discountPrice!);
     }
     return total;
   }
@@ -250,7 +251,7 @@ class UserDatabaseHelper {
         .collection(CART_COLLECTION_NAME);
     final docRef = cartCollectionRef.doc(cartItemID);
     final docSnapshot = await docRef.get();
-    int currentCount = docSnapshot.data()[CartItem.ITEM_COUNT_KEY];
+    int currentCount = docSnapshot.data()?[CartItem.ITEM_COUNT_KEY];
     if (currentCount <= 1) {
       return removeProductFromCart(cartItemID);
     } else {
@@ -266,7 +267,7 @@ class UserDatabaseHelper {
         .doc(uid)
         .collection(CART_COLLECTION_NAME)
         .get();
-    List itemsId = List<String>();
+    List<String> itemsId = [];
     for (final item in querySnapshot.docs) {
       itemsId.add(item.id);
     }
@@ -280,7 +281,7 @@ class UserDatabaseHelper {
         .doc(uid)
         .collection(ORDERED_PRODUCTS_COLLECTION_NAME)
         .get();
-    List orderedProductsId = List<String>();
+    List<String> orderedProductsId = [];
     for (final doc in orderedProductsSnapshot.docs) {
       orderedProductsId.add(doc.id);
     }
@@ -307,7 +308,7 @@ class UserDatabaseHelper {
         .collection(ORDERED_PRODUCTS_COLLECTION_NAME)
         .doc(id)
         .get();
-    final orderedProduct = OrderedProduct.fromMap(doc.data(), id: doc.id);
+    final orderedProduct = OrderedProduct.fromMap(doc.data() ?? {}, id: doc.id);
     return orderedProduct;
   }
 
@@ -369,6 +370,6 @@ class UserDatabaseHelper {
     String uid = AuthentificationService().currentUser.uid;
     final userDocSnapshot =
         await firestore.collection(USERS_COLLECTION_NAME).doc(uid).get();
-    return userDocSnapshot.data()[DP_KEY];
+    return userDocSnapshot.data()?[DP_KEY];
   }
 }

@@ -10,16 +10,16 @@ class ProductShortDetailCard extends StatelessWidget {
   final String productId;
   final VoidCallback onPressed;
   const ProductShortDetailCard({
-    Key key,
-    @required this.productId,
-    @required this.onPressed,
+    Key? key,
+    required this.productId,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: FutureBuilder<Product>(
+      child: FutureBuilder<Product?>(
         future: ProductDatabaseHelper().getProductWithID(productId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -32,9 +32,9 @@ class ProductShortDetailCard extends StatelessWidget {
                     aspectRatio: 0.88,
                     child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: product.images.length > 0
+                      child: product!.images!.length > 0
                           ? Image.network(
-                              product.images[0],
+                              product.images![0],
                               fit: BoxFit.contain,
                             )
                           : Text("No Image"),
@@ -47,7 +47,7 @@ class ProductShortDetailCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.title,
+                        product.title!,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(

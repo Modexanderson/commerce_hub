@@ -11,7 +11,7 @@ import 'package:commerce_hub/services/firestore_files_access/firestore_files_acc
 import 'package:commerce_hub/size_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:future_progress_dialog/future_progress_dialog.dart';
+// import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'package:logger/logger.dart';
 
 import '../../../utils.dart';
@@ -58,8 +58,8 @@ class _BodyState extends State<Body> {
                   ),
                   SizedBox(height: getProportionateScreenHeight(30)),
                   SizedBox(
-                    height: SizeConfig.screenHeight * 0.7,
-                    child: StreamBuilder<List<String>>(
+                    height: SizeConfig.screenHeight! * 0.7,
+                    child: StreamBuilder<dynamic>(
                       stream: usersProductsStream.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -116,12 +116,12 @@ class _BodyState extends State<Body> {
   Widget buildProductsCard(String productId) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: FutureBuilder<Product>(
+      child: FutureBuilder<Product?>(
         future: ProductDatabaseHelper().getProductWithID(productId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final product = snapshot.data;
-            return buildProductDismissible(product);
+            return buildProductDismissible(product!);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
@@ -169,7 +169,7 @@ class _BodyState extends State<Body> {
           final confirmation = await showConfirmationDialog(
               context, "Are you sure to Delete Product?");
           if (confirmation) {
-            for (int i = 0; i < product.images.length; i++) {
+            for (int i = 0; i < product.images!.length; i++) {
               String path =
                   ProductDatabaseHelper().getPathForProductImage(product.id, i);
               final deletionFuture =
@@ -180,14 +180,14 @@ class _BodyState extends State<Body> {
                   return AsyncProgressDialog(
                     deletionFuture,
                     message: Text(
-                        "Deleting Product Images ${i + 1}/${product.images.length}"),
+                        "Deleting Product Images ${i + 1}/${product.images!.length}"),
                   );
                 },
               );
             }
 
             bool productInfoDeleted = false;
-            String snackbarMessage;
+            String? snackbarMessage;
             try {
               final deleteProductFuture =
                   ProductDatabaseHelper().deleteUserProduct(product.id);
@@ -215,7 +215,7 @@ class _BodyState extends State<Body> {
               Logger().i(snackbarMessage);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(snackbarMessage),
+                  content: Text(snackbarMessage!),
                 ),
               );
             }

@@ -26,21 +26,21 @@ class Product extends Model {
   static const String PRODUCT_TYPE_KEY = "product_type";
   static const String SEARCH_TAGS_KEY = "search_tags";
 
-  List<String> images;
-  String title;
-  String variant;
-  num discountPrice;
-  num originalPrice;
-  num rating;
-  String highlights;
-  String description;
-  String seller;
-  String location;
-  bool favourite;
-  String phone;
-  String owner;
-  ProductType productType;
-  List<String> searchTags;
+  List<String>? images;
+  String? title;
+  String? variant;
+  num? discountPrice;
+  num? originalPrice;
+  num? rating;
+  String? highlights;
+  String? description;
+  String? seller;
+  String? location;
+  bool? favourite;
+  String? phone;
+  String? owner;
+  ProductType? productType;
+  List<String>? searchTags;
 
   Product(
     String id, {
@@ -62,16 +62,16 @@ class Product extends Model {
 
   int calculatePercentageDiscount() {
     int discount =
-        (((originalPrice - discountPrice) * 100) / originalPrice).round();
+        (((originalPrice! - discountPrice!) * 100) / originalPrice!).round();
     return discount;
   }
 
-  factory Product.fromMap(Map<String, dynamic> map, {String id}) {
+  factory Product.fromMap(Map<String, dynamic> map, {String? id}) {
     if (map[SEARCH_TAGS_KEY] == null) {
-      map[SEARCH_TAGS_KEY] = List<String>();
+      map[SEARCH_TAGS_KEY] = List<String>.empty();
     }
     return Product(
-      id,
+      id!,
       images: (map[IMAGES_KEY] ?? []).cast<String>(),
       title: map[TITLE_KEY],
       variant: map[VARIANT_KEY],

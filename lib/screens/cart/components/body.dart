@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commerce_hub/components/async_progress_dialog.dart';
-import 'package:commerce_hub/components/default_button.dart';
 import 'package:commerce_hub/components/nothingtoshow_container.dart';
 import 'package:commerce_hub/components/product_short_detail_card.dart';
 import 'package:commerce_hub/constants.dart';
 import 'package:commerce_hub/models/CartItem.dart';
 import 'package:commerce_hub/models/OrderedProduct.dart';
 import 'package:commerce_hub/models/Product.dart';
-import 'package:commerce_hub/screens/cart/components/checkout_card.dart';
 import 'package:commerce_hub/screens/product_details/product_details_screen.dart';
 import 'package:commerce_hub/services/data_streams/cart_items_stream.dart';
 import 'package:commerce_hub/services/database/product_database_helper.dart';
@@ -15,7 +13,6 @@ import 'package:commerce_hub/services/database/user_database_helper.dart';
 import 'package:commerce_hub/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'package:logger/logger.dart';
 
 import '../../../utils.dart';
@@ -27,7 +24,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final CartItemsStream cartItemsStream = CartItemsStream();
-  PersistentBottomSheetController bottomSheetHandler;
+  PersistentBottomSheetController? bottomSheetHandler;
   @override
   void initState() {
     super.initState();
@@ -61,7 +58,7 @@ class _BodyState extends State<Body> {
                   ),
                   SizedBox(height: getProportionateScreenHeight(20)),
                   SizedBox(
-                    height: SizeConfig.screenHeight * 0.75,
+                    height: SizeConfig.screenHeight! * 0.75,
                     child: Center(
                       child: buildCartItemsList(),
                     ),
@@ -81,11 +78,11 @@ class _BodyState extends State<Body> {
   }
 
   Widget buildCartItemsList() {
-    return StreamBuilder<List<String>>(
+    return StreamBuilder(
       stream: cartItemsStream.stream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<String> cartItemsId = snapshot.data;
+          List<String> cartItemsId = snapshot.data as List<String>? ?? [];
           if (cartItemsId.length == 0) {
             return Center(
               child: NothingToShowContainer(
@@ -164,7 +161,7 @@ class _BodyState extends State<Body> {
           if (confirmation) {
             if (direction == DismissDirection.startToEnd) {
               bool result = false;
-              String snackbarMessage;
+              String? snackbarMessage;
               try {
                 result = await UserDatabaseHelper()
                     .removeProductFromCart(cartItemId);
@@ -181,7 +178,7 @@ class _BodyState extends State<Body> {
                 Logger().w("Unknown Exception: $e");
                 snackbarMessage = "Something went wrong";
               } finally {
-                Logger().i(snackbarMessage);
+                Logger().i(snackbarMessage!);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(snackbarMessage),
@@ -211,11 +208,11 @@ class _BodyState extends State<Body> {
         border: Border.all(color: kTextColor.withOpacity(0.15)),
         borderRadius: BorderRadius.circular(15),
       ),
-      child: FutureBuilder<Product>(
+      child: FutureBuilder<Product?>(
         future: ProductDatabaseHelper().getProductWithID(cartItemId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            Product product = snapshot.data;
+            Product product = snapshot.data!;
             return Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -269,7 +266,7 @@ class _BodyState extends State<Body> {
                             int itemCount = 0;
                             if (snapshot.hasData) {
                               final cartItem = snapshot.data;
-                              itemCount = cartItem.itemCount;
+                              itemCount = cartItem!.itemCount!;
                             } else if (snapshot.hasError) {
                               final error = snapshot.error.toString();
                               Logger().e(error);
@@ -374,7 +371,7 @@ class _BodyState extends State<Body> {
                 productUid: e, orderDate: formatedDateTime))
             .toList();
         bool addedProductsToMyProducts = false;
-        String snackbarmMessage;
+        String? snackbarmMessage;
         try {
           addedProductsToMyProducts =
               await UserDatabaseHelper().addToMyOrders(orderedProducts);
@@ -430,7 +427,7 @@ class _BodyState extends State<Body> {
 
   void shutBottomSheet() {
     if (bottomSheetHandler != null) {
-      bottomSheetHandler.close();
+      bottomSheetHandler?.close();
     }
   }
 

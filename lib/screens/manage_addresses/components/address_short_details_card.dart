@@ -10,15 +10,17 @@ class AddressShortDetailsCard extends StatelessWidget {
   final Function onTap;
 
   const AddressShortDetailsCard(
-      {Key key, @required this.addressId, @required this.onTap})
+      {Key? key, required this.addressId, required this.onTap})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        onTap();
+      },
       child: SizedBox(
         width: double.infinity,
-        height: SizeConfig.screenHeight * 0.15,
+        height: SizeConfig.screenHeight! * 0.15,
         child: FutureBuilder<Address>(
           future: UserDatabaseHelper().getAddressFromId(addressId),
           builder: (context, snapshot) {
@@ -41,7 +43,7 @@ class AddressShortDetailsCard extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          address.title,
+                          address!.title,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,

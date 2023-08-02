@@ -13,11 +13,11 @@ class Body extends StatelessWidget {
   final String phone;
 
   const Body(
-      {Key key,
-      @required this.searchQuery,
-      @required this.searchResultProductsId,
-      @required this.searchIn,
-      @required this.phone})
+      {Key? key,
+      required this.searchQuery,
+      required this.searchResultProductsId,
+      required this.searchIn,
+      required this.phone})
       : super(key: key);
 
   @override
@@ -64,7 +64,7 @@ class Body extends StatelessWidget {
                 ),
                 SizedBox(height: getProportionateScreenHeight(30)),
                 SizedBox(
-                  height: SizeConfig.screenHeight * 0.75,
+                  height: SizeConfig.screenHeight! * 0.75,
                   child: buildProductsGrid(),
                 ),
                 SizedBox(height: getProportionateScreenHeight(30)),

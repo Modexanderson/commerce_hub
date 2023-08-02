@@ -4,8 +4,8 @@ class AppReview extends Model {
   static const String LIKED_KEY = "liked";
   static const String FEEDBACK_KEY = "feedback";
 
-  bool liked;
-  String feedback;
+  bool? liked;
+  String? feedback;
 
   AppReview(
     String id, {
@@ -13,9 +13,9 @@ class AppReview extends Model {
     this.feedback,
   }) : super(id);
 
-  factory AppReview.fromMap(Map<String, dynamic> map, {String id}) {
+  factory AppReview.fromMap(Map<String, dynamic> map, {String? id}) {
     return AppReview(
-      id,
+      id!,
       liked: map[LIKED_KEY],
       feedback: map[FEEDBACK_KEY],
     );

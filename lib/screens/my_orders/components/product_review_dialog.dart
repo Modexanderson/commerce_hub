@@ -8,8 +8,8 @@ import '../../../size_config.dart';
 class ProductReviewDialog extends StatelessWidget {
   final Review review;
   ProductReviewDialog({
-    Key key,
-    @required this.review,
+    Key? key,
+    required this.review,
   }) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class ProductReviewDialog extends StatelessWidget {
       children: [
         Center(
           child: RatingBar.builder(
-            initialRating: review.rating.toDouble(),
+            initialRating: review.rating!.toDouble(),
             minRating: 1,
             direction: Axis.horizontal,
             allowHalfRating: false,

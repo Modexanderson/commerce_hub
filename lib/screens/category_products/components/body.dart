@@ -18,8 +18,8 @@ class Body extends StatefulWidget {
   final ProductType productType;
 
   Body({
-    Key key,
-    @required this.productType,
+    Key? key,
+    required this.productType,
   }) : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final CategoryProductsStream categoryProductsStream;
 
-  _BodyState({@required this.categoryProductsStream});
+  _BodyState({required this.categoryProductsStream});
 
   @override
   void initState() {
@@ -64,17 +64,18 @@ class _BodyState extends State<Body> {
                   Ads(),
                   SizedBox(height: getProportionateScreenHeight(5)),
                   SizedBox(
-                    height: SizeConfig.screenHeight * 0.13,
+                    height: SizeConfig.screenHeight! * 0.13,
                     child: buildCategoryBanner(),
                   ),
                   SizedBox(height: getProportionateScreenHeight(5)),
                   SizedBox(
-                    height: SizeConfig.screenHeight * 0.68,
-                    child: StreamBuilder<List<String>>(
+                    height: SizeConfig.screenHeight! * 0.68,
+                    child: StreamBuilder(
                       stream: categoryProductsStream.stream,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List<String> productsId = snapshot.data;
+                          List<String> productsId =
+                              snapshot.data as List<String>;
                           if (productsId.length == 0) {
                             return Center(
                               child: NothingToShowContainer(
@@ -132,7 +133,7 @@ class _BodyState extends State<Body> {
             onSubmit: (value) async {
               final query = value.toString();
               if (query.length <= 0) return;
-              List<String> searchedProductsId;
+              List<dynamic> searchedProductsId;
               try {
                 searchedProductsId = await ProductDatabaseHelper()
                     .searchInProducts(query.toLowerCase(),
@@ -143,7 +144,8 @@ class _BodyState extends State<Body> {
                     MaterialPageRoute(
                       builder: (context) => SearchResultScreen(
                         searchQuery: query,
-                        searchResultProductsId: searchedProductsId,
+                        searchResultProductsId:
+                            searchedProductsId as List<String>,
                         searchIn:
                             EnumToString.convertToString(widget.productType),
                         phone: null,

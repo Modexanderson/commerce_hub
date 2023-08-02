@@ -4,15 +4,15 @@ class CartItem extends Model {
   static const String PRODUCT_ID_KEY = "product_id";
   static const String ITEM_COUNT_KEY = "item_count";
 
-  int itemCount;
+  int? itemCount;
   CartItem({
-    String id,
+    String? id,
     this.itemCount = 0,
-  }) : super(id);
+  }) : super(id!);
 
-  factory CartItem.fromMap(Map<String, dynamic> map, {String id}) {
+  factory CartItem.fromMap(Map<String, dynamic> map, {String? id}) {
     return CartItem(
-      id: id,
+      id: id!,
       itemCount: map[ITEM_COUNT_KEY],
     );
   }

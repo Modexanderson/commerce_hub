@@ -10,10 +10,10 @@ class HomeHeader extends StatelessWidget {
   final Function onCartButtonPressed;
   final Function onFavouriteButtonPressed;
   const HomeHeader({
-    Key key,
-    @required this.onSearchSubmitted,
-    @required this.onCartButtonPressed,
-    @required this.onFavouriteButtonPressed,
+    Key? key,
+    required this.onSearchSubmitted,
+    required this.onCartButtonPressed,
+    required this.onFavouriteButtonPressed,
   }) : super(key: key);
 
   @override
@@ -29,22 +29,29 @@ class HomeHeader extends StatelessWidget {
             }),
         Expanded(
           child: SearchField(
-            onSubmit: onSearchSubmitted,
+            onSubmit: () {
+              onSearchSubmitted();
+            },
           ),
         ),
         SizedBox(width: 5),
         IconButtonWithCounter(
-          svgSrc: "assets/icons/Cart Icon.svg",
-          numOfItems: 0,
-          press: onCartButtonPressed,
-        ),
+            svgSrc: "assets/icons/Cart Icon.svg",
+            numOfItems: 0,
+            press: () {
+              onCartButtonPressed();
+            }),
         SizedBox(width: 5),
         IconButtonWithCounter(
-          // svgSrc: Icons.favorite_border_sharp.toString(),
-          icon: Icon(Icons.favorite_border_sharp, color: Colors.grey[700],),
-          numOfItems: 0,
-          press: onFavouriteButtonPressed,
-        ),
+            // svgSrc: Icons.favorite_border_sharp.toString(),
+            icon: Icon(
+              Icons.favorite_border_sharp,
+              color: Colors.grey[700],
+            ),
+            numOfItems: 0,
+            press: () {
+              onFavouriteButtonPressed();
+            }),
 
         // IconButton(
         //   onPressed: onFavouriteButtonPressed,
@@ -52,9 +59,9 @@ class HomeHeader extends StatelessWidget {
         //     Icons.favorite_border_sharp,
         //     color: Colors.grey[700],
         //   ),
-          // press: ,
-          // svgSrc: "assets/icons/Cart Icon.svg",
-          // numOfItems: 0,
+        // press: ,
+        // svgSrc: "assets/icons/Cart Icon.svg",
+        // numOfItems: 0,
         // ),
       ],
     );

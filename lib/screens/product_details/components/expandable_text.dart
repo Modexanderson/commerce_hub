@@ -9,9 +9,9 @@ class ExpandableText extends StatelessWidget {
   final String content;
   final int maxLines;
   const ExpandableText({
-    Key key,
-    @required this.title,
-    @required this.content,
+    Key? key,
+    required this.title,
+    required this.content,
     this.maxLines = 3,
   }) : super(key: key);
 

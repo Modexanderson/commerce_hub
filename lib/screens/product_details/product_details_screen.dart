@@ -7,10 +7,10 @@ import 'components/body.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final String productId;
-  final String phone;
+  final String? phone;
 
   const ProductDetailsScreen(
-      {Key key, @required this.productId, @required this.phone})
+      {Key? key, required this.productId, required this.phone})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

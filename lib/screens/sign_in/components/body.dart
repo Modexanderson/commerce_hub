@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                SizedBox(height: SizeConfig.screenHeight! * 0.04),
                 Text(
                   "Welcome Back",
                   style: headingStyle,
@@ -28,9 +28,9 @@ class Body extends StatelessWidget {
                   "Sign in with your email and password",
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: SizeConfig.screenHeight! * 0.08),
                 SignInForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SizedBox(height: SizeConfig.screenHeight! * 0.08),
                 NoAccountText(),
                 SizedBox(height: getProportionateScreenHeight(20)),
               ],

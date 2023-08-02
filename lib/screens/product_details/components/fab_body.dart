@@ -6,16 +6,15 @@ import 'package:commerce_hub/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-
 class FabBody extends StatelessWidget {
   final String productId;
 
   const FabBody({
-    Key key,
-    @required this.productId,
+    Key? key,
+    required this.productId,
     this.phone,
   }) : super(key: key);
-  final int phone;
+  final int? phone;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,19 +23,18 @@ class FabBody extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: getProportionateScreenWidth(screenPadding)),
-          child: FutureBuilder<Product>(
+          child: FutureBuilder<Product?>(
             future: ProductDatabaseHelper().getProductWithID(productId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final product = snapshot.data;
                 return Column(
                   children: [
-                    AddToCartFAB(productId: productId, product: product)
+                    AddToCartFAB(productId: productId, product: product!)
                   ],
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator(
-                         ));
+                return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 final error = snapshot.error.toString();
                 Logger().e(error);

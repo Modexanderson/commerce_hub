@@ -8,8 +8,8 @@ class CategoryProductsScreen extends StatelessWidget {
   final ProductType productType;
 
   const CategoryProductsScreen({
-    Key key,
-    @required this.productType,
+    Key? key,
+    required this.productType,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

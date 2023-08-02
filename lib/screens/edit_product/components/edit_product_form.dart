@@ -12,7 +12,7 @@ import 'package:commerce_hub/services/firestore_files_access/firestore_files_acc
 import 'package:commerce_hub/services/local_files_access/local_files_access_service.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tags/flutter_tags.dart';
+// import 'package:flutter_tags/flutter_tags.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +20,9 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class EditProductForm extends StatefulWidget {
-  final Product product;
+  final Product? product;
   EditProductForm({
-    Key key,
+    Key? key,
     this.product,
   }) : super(key: key);
 
@@ -33,7 +33,7 @@ class EditProductForm extends StatefulWidget {
 class _EditProductFormState extends State<EditProductForm> {
   final _basicDetailsFormKey = GlobalKey<FormState>();
   final _describeProductFormKey = GlobalKey<FormState>();
-  final _tagStateKey = GlobalKey<TagsState>();
+  // final _tagStateKey = GlobalKey<TagsState>();
 
   final TextEditingController titleFieldController = TextEditingController();
   final TextEditingController variantFieldController = TextEditingController();
@@ -49,7 +49,7 @@ class _EditProductFormState extends State<EditProductForm> {
   final TextEditingController locationFieldController = TextEditingController();
 
   bool newProduct = true;
-  Product product;
+  Product? product;
 
   @override
   void dispose() {
@@ -69,18 +69,18 @@ class _EditProductFormState extends State<EditProductForm> {
   void initState() {
     super.initState();
     if (widget.product == null) {
-      product = Product(null);
+      product = Product('');
       newProduct = true;
     } else {
       product = widget.product;
       newProduct = false;
       final productDetails =
           Provider.of<ProductDetails>(context, listen: false);
-      productDetails.initialSelectedImages = widget.product.images
+      productDetails.initialSelectedImages = widget.product!.images!
           .map((e) => CustomImage(imgType: ImageType.network, path: e))
           .toList();
-      productDetails.initialProductType = product.productType;
-      productDetails.initSearchTags = product.searchTags ?? [];
+      productDetails.initialProductType = product!.productType!;
+      productDetails.initSearchTags = product!.searchTags ?? [];
     }
   }
 
@@ -107,69 +107,69 @@ class _EditProductFormState extends State<EditProductForm> {
       ],
     );
     if (newProduct == false) {
-      titleFieldController.text = product.title;
-      variantFieldController.text = product.variant;
-      discountPriceFieldController.text = product.discountPrice.toString();
-      originalPriceFieldController.text = product.originalPrice.toString();
-      highlightsFieldController.text = product.highlights;
-      desciptionFieldController.text = product.description;
-      sellerFieldController.text = product.seller;
-      locationFieldController.text = product.location;
+      titleFieldController.text = product!.title!;
+      variantFieldController.text = product!.variant!;
+      discountPriceFieldController.text = product!.discountPrice.toString();
+      originalPriceFieldController.text = product!.originalPrice.toString();
+      highlightsFieldController.text = product!.highlights!;
+      desciptionFieldController.text = product!.description!;
+      sellerFieldController.text = product!.seller!;
+      locationFieldController.text = product!.location!;
     }
     return column;
   }
 
-  Widget buildProductSearchTags() {
-    return Consumer<ProductDetails>(
-      builder: (context, productDetails, child) {
-        return Tags(
-          key: _tagStateKey,
-          horizontalScroll: true,
-          heightHorizontalScroll: getProportionateScreenHeight(80),
-          textField: TagsTextField(
-            lowerCase: true,
-            width: getProportionateScreenWidth(120),
-            constraintSuggestion: true,
-            hintText: "Add search tag",
-            keyboardType: TextInputType.name,
-            onSubmitted: (String str) {
-              productDetails.addSearchTag(str.toLowerCase());
-            },
-          ),
-          itemCount: productDetails.searchTags.length,
-          itemBuilder: (index) {
-            final item = productDetails.searchTags[index];
-            return ItemTags(
-              index: index,
-              title: item,
-              active: true,
-              activeColor: kPrimaryColor,
-              padding: EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 8,
-              ),
-              alignment: MainAxisAlignment.spaceBetween,
-              removeButton: ItemTagsRemoveButton(
-                backgroundColor: Colors.white,
-                color: kTextColor,
-                onRemoved: () {
-                  productDetails.removeSearchTag(index: index);
-                  return true;
-                },
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
+  // Widget buildProductSearchTags() {
+  //   return Consumer<ProductDetails>(
+  //     builder: (context, productDetails, child) {
+  //       return Tags(
+  //         key: _tagStateKey,
+  //         horizontalScroll: true,
+  //         heightHorizontalScroll: getProportionateScreenHeight(80),
+  //         textField: TagsTextField(
+  //           lowerCase: true,
+  //           width: getProportionateScreenWidth(120),
+  //           constraintSuggestion: true,
+  //           hintText: "Add search tag",
+  //           keyboardType: TextInputType.name,
+  //           onSubmitted: (String str) {
+  //             productDetails.addSearchTag(str.toLowerCase());
+  //           },
+  //         ),
+  //         itemCount: productDetails.searchTags.length,
+  //         itemBuilder: (index) {
+  //           final item = productDetails.searchTags[index];
+  //           return ItemTags(
+  //             index: index,
+  //             title: item,
+  //             active: true,
+  //             activeColor: kPrimaryColor,
+  //             padding: EdgeInsets.symmetric(
+  //               horizontal: 12,
+  //               vertical: 8,
+  //             ),
+  //             alignment: MainAxisAlignment.spaceBetween,
+  //             removeButton: ItemTagsRemoveButton(
+  //               backgroundColor: Colors.white,
+  //               color: kTextColor,
+  //               onRemoved: () {
+  //                 productDetails.removeSearchTag(index: index);
+  //                 return true;
+  //               },
+  //             ),
+  //           );
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget buildBasicDetailsTile(BuildContext context) {
     return Form(
       key: _basicDetailsFormKey,
       child: ExpansionTile(
         iconColor: kPrimaryColor,
-      textColor: kPrimaryColor,
+        textColor: kPrimaryColor,
         maintainState: true,
         title: Text(
           "Basic Details",
@@ -199,14 +199,14 @@ class _EditProductFormState extends State<EditProductForm> {
   }
 
   bool validateBasicDetailsForm() {
-    if (_basicDetailsFormKey.currentState.validate()) {
-      _basicDetailsFormKey.currentState.save();
-      product.title = titleFieldController.text;
-      product.variant = variantFieldController.text;
-      product.originalPrice = double.parse(originalPriceFieldController.text);
-      product.discountPrice = double.parse(discountPriceFieldController.text);
-      product.seller = sellerFieldController.text;
-      product.location = locationFieldController.text;
+    if (_basicDetailsFormKey.currentState!.validate()) {
+      _basicDetailsFormKey.currentState!.save();
+      product?.title = titleFieldController.text;
+      product?.variant = variantFieldController.text;
+      product?.originalPrice = double.parse(originalPriceFieldController.text);
+      product?.discountPrice = double.parse(discountPriceFieldController.text);
+      product?.seller = sellerFieldController.text;
+      product?.location = locationFieldController.text;
       return true;
     }
     return false;
@@ -217,7 +217,7 @@ class _EditProductFormState extends State<EditProductForm> {
       key: _describeProductFormKey,
       child: ExpansionTile(
         iconColor: kPrimaryColor,
-      textColor: kPrimaryColor,
+        textColor: kPrimaryColor,
         maintainState: true,
         title: Text(
           "Describe Product",
@@ -239,10 +239,10 @@ class _EditProductFormState extends State<EditProductForm> {
   }
 
   bool validateDescribeProductForm() {
-    if (_describeProductFormKey.currentState.validate()) {
-      _describeProductFormKey.currentState.save();
-      product.highlights = highlightsFieldController.text;
-      product.description = desciptionFieldController.text;
+    if (_describeProductFormKey.currentState!.validate()) {
+      _describeProductFormKey.currentState!.save();
+      product?.highlights = highlightsFieldController.text;
+      product?.description = desciptionFieldController.text;
       return true;
     }
     return false;
@@ -280,7 +280,7 @@ class _EditProductFormState extends State<EditProductForm> {
               fontSize: 16,
             ),
             onChanged: (value) {
-              productDetails.productType = value;
+              productDetails.productType = value as ProductType;
             },
             elevation: 0,
             underline: SizedBox(width: 0, height: 0),
@@ -304,7 +304,7 @@ class _EditProductFormState extends State<EditProductForm> {
       children: [
         Text("Your product will be searched for this Tags"),
         SizedBox(height: getProportionateScreenHeight(15)),
-        buildProductSearchTags(),
+        // buildProductSearchTags(),
       ],
     );
   }
@@ -565,14 +565,14 @@ class _EditProductFormState extends State<EditProductForm> {
       );
       return;
     }
-    String productId;
-    String snackbarMessage;
+    String? productId;
+    String? snackbarMessage;
     try {
-      product.productType = productDetails.productType;
-      product.searchTags = productDetails.searchTags;
+      product?.productType = productDetails.productType;
+      product?.searchTags = productDetails.searchTags;
       final productUploadFuture = newProduct
-          ? ProductDatabaseHelper().addUsersProduct(product)
-          : ProductDatabaseHelper().updateUsersProduct(product);
+          ? ProductDatabaseHelper().addUsersProduct(product!)
+          : ProductDatabaseHelper().updateUsersProduct(product!);
       productUploadFuture.then((value) {
         productId = value;
       });
@@ -601,14 +601,14 @@ class _EditProductFormState extends State<EditProductForm> {
       Logger().i(snackbarMessage);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(snackbarMessage),
+          content: Text(snackbarMessage!),
         ),
       );
     }
     if (productId == null) return;
     bool allImagesUploaded = false;
     try {
-      allImagesUploaded = await uploadProductImages(productId);
+      allImagesUploaded = await uploadProductImages(productId!);
       if (allImagesUploaded == true) {
         snackbarMessage = "All images uploaded successfully";
       } else {
@@ -624,17 +624,17 @@ class _EditProductFormState extends State<EditProductForm> {
       Logger().i(snackbarMessage);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(snackbarMessage),
+          content: Text(snackbarMessage!),
         ),
       );
     }
-    List<String> downloadUrls = productDetails.selectedImages
+    List<String?> downloadUrls = productDetails.selectedImages
         .map((e) => e.imgType == ImageType.network ? e.path : null)
         .toList();
     bool productFinalizeUpdate = false;
     try {
-      final updateProductFuture =
-          ProductDatabaseHelper().updateProductsImages(productId, downloadUrls);
+      final updateProductFuture = ProductDatabaseHelper()
+          .updateProductsImages(productId!, downloadUrls as List<String>);
       productFinalizeUpdate = await showDialog(
         context: context,
         builder: (context) {
@@ -659,7 +659,7 @@ class _EditProductFormState extends State<EditProductForm> {
       Logger().i(snackbarMessage);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(snackbarMessage),
+          content: Text(snackbarMessage!),
         ),
       );
     }
@@ -672,7 +672,7 @@ class _EditProductFormState extends State<EditProductForm> {
     for (int i = 0; i < productDetails.selectedImages.length; i++) {
       if (productDetails.selectedImages[i].imgType == ImageType.local) {
         print("Image being uploaded: " + productDetails.selectedImages[i].path);
-        String downloadUrl;
+        String? downloadUrl;
         try {
           final imgUploadFuture = FirestoreFilesAccess().uploadFileToPath(
               File(productDetails.selectedImages[i].path),
@@ -710,15 +710,15 @@ class _EditProductFormState extends State<EditProductForm> {
     return allImagesUpdated;
   }
 
-  Future<void> addImageButtonCallback({int index}) async {
+  Future<void> addImageButtonCallback({int? index}) async {
     final productDetails = Provider.of<ProductDetails>(context, listen: false);
     if (index == null && productDetails.selectedImages.length >= 3) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Max 3 images can be uploaded")));
       return;
     }
-    String path;
-    String snackbarMessage;
+    String? path;
+    String? snackbarMessage;
     try {
       path = await choseImageFromLocalFiles(context);
       if (path == null) {
