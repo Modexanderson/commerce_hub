@@ -235,7 +235,10 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
             );
           } else if (snapshot.hasError) {
             final error = snapshot.error;
-            Logger().w(error.toString());
+            if (error != null) {
+              final errorMessage = error; // Explicitly cast to String
+              Logger().w(errorMessage);
+            }
           }
           return CircleAvatar(
             backgroundColor: kTextColor,

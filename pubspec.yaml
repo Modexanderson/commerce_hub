@@ -33,7 +33,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.2
   flutter_rating_bar: ^4.0.0
   flutter_svg: ^0.20.0-nullsafety.3
-  # flutter_tags: ^0.4.9+1
+  flutter_tags: ^1.0.0-nullsafety.1
   flutter_chip_tags: ^2.0.2
   future_progress_dialog: ^0.2.0
   image_picker: ^0.8.4+4

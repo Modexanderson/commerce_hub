@@ -159,7 +159,7 @@ class ProductDatabaseHelper {
     if (docSnapshot.exists) {
       return Product.fromMap(docSnapshot.data() ?? {}, id: docSnapshot.id);
     }
-    return null;
+    return Product.fromMap(docSnapshot.data() ?? {}, id: docSnapshot.id);
   }
 
   Future<String> addUsersProduct(Product product) async {

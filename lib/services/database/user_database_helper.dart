@@ -370,6 +370,7 @@ class UserDatabaseHelper {
     String uid = AuthentificationService().currentUser.uid;
     final userDocSnapshot =
         await firestore.collection(USERS_COLLECTION_NAME).doc(uid).get();
-    return userDocSnapshot.data()?[DP_KEY];
+    return userDocSnapshot.data()?['DP_KEY'] ??
+        'https://cdn.vectorstock.com/i/1000x1000/62/59/default-avatar-photo-placeholder-profile-icon-vector-21666259.webp';
   }
 }

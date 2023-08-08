@@ -27,7 +27,7 @@ class Body extends StatelessWidget {
                   style: headingStyle,
                 ),
                 SizedBox(height: getProportionateScreenHeight(30)),
-                EditProductForm(product: productToEdit!),
+                EditProductForm(product: productToEdit),
                 SizedBox(height: getProportionateScreenHeight(30)),
               ],
             ),

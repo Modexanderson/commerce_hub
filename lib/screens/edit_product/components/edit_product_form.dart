@@ -12,6 +12,7 @@ import 'package:commerce_hub/services/firestore_files_access/firestore_files_acc
 import 'package:commerce_hub/services/local_files_access/local_files_access_service.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tags/flutter_tags.dart';
 // import 'package:flutter_tags/flutter_tags.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class EditProductForm extends StatefulWidget {
 class _EditProductFormState extends State<EditProductForm> {
   final _basicDetailsFormKey = GlobalKey<FormState>();
   final _describeProductFormKey = GlobalKey<FormState>();
-  // final _tagStateKey = GlobalKey<TagsState>();
+  final _tagStateKey = GlobalKey<TagsState>();
 
   final TextEditingController titleFieldController = TextEditingController();
   final TextEditingController variantFieldController = TextEditingController();
@@ -119,50 +120,63 @@ class _EditProductFormState extends State<EditProductForm> {
     return column;
   }
 
-  // Widget buildProductSearchTags() {
-  //   return Consumer<ProductDetails>(
-  //     builder: (context, productDetails, child) {
-  //       return Tags(
-  //         key: _tagStateKey,
-  //         horizontalScroll: true,
-  //         heightHorizontalScroll: getProportionateScreenHeight(80),
-  //         textField: TagsTextField(
-  //           lowerCase: true,
-  //           width: getProportionateScreenWidth(120),
-  //           constraintSuggestion: true,
-  //           hintText: "Add search tag",
-  //           keyboardType: TextInputType.name,
-  //           onSubmitted: (String str) {
-  //             productDetails.addSearchTag(str.toLowerCase());
-  //           },
-  //         ),
-  //         itemCount: productDetails.searchTags.length,
-  //         itemBuilder: (index) {
-  //           final item = productDetails.searchTags[index];
-  //           return ItemTags(
-  //             index: index,
-  //             title: item,
-  //             active: true,
-  //             activeColor: kPrimaryColor,
-  //             padding: EdgeInsets.symmetric(
-  //               horizontal: 12,
-  //               vertical: 8,
-  //             ),
-  //             alignment: MainAxisAlignment.spaceBetween,
-  //             removeButton: ItemTagsRemoveButton(
-  //               backgroundColor: Colors.white,
-  //               color: kTextColor,
-  //               onRemoved: () {
-  //                 productDetails.removeSearchTag(index: index);
-  //                 return true;
-  //               },
-  //             ),
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
+  Widget buildProductSearchTags() {
+    return Consumer<ProductDetails>(
+      builder: (context, productDetails, child) {
+        return Tags(
+          key: _tagStateKey,
+          horizontalScroll: true,
+          heightHorizontalScroll: getProportionateScreenHeight(80),
+          textField: TagsTextField(
+            lowerCase: true,
+            width: getProportionateScreenWidth(120),
+            constraintSuggestion: true,
+            hintText: "Add search tag",
+            keyboardType: TextInputType.name,
+            onSubmitted: (String str) {
+              productDetails.addSearchTag(str.toLowerCase());
+            },
+          ),
+          itemCount: productDetails.searchTags.length,
+          itemBuilder: (index) {
+            final item = productDetails.searchTags[index];
+            return ActionChip(
+              label: Text(item),
+              avatar: Icon(Icons.cancel),
+              clipBehavior: Clip.hardEdge,
+              disabledColor: Colors.black,
+              elevation: SizeConfig.defaultSize,
+              // key: _tagStateKey,
+              pressElevation: 100,
+              labelStyle: TextStyle(fontSize: 10),
+              onPressed: () {
+                productDetails.removeSearchTag(index: index);
+              },
+            );
+            // ItemTags(
+            //   index: index,
+            //   title: item,
+            //   active: true,
+            //   activeColor: kPrimaryColor,
+            //   padding: EdgeInsets.symmetric(
+            //     horizontal: 12,
+            //     vertical: 8,
+            //   ),
+            //   alignment: MainAxisAlignment.spaceBetween,
+            //   removeButton: ItemTagsRemoveButton(
+            //     backgroundColor: Colors.white,
+            //     color: kTextColor,
+            //     onRemoved: () {
+            //       productDetails.removeSearchTag(index: index);
+            //       return true;
+            //     },
+            //   ),
+            // );
+          },
+        );
+      },
+    );
+  }
 
   Widget buildBasicDetailsTile(BuildContext context) {
     return Form(
@@ -273,7 +287,7 @@ class _EditProductFormState extends State<EditProductForm> {
                 )
                 .toList(),
             hint: Text(
-              "Chose Product Type",
+              "Choose Product Type",
             ),
             style: TextStyle(
               color: kTextColor,
@@ -304,7 +318,7 @@ class _EditProductFormState extends State<EditProductForm> {
       children: [
         Text("Your product will be searched for this Tags"),
         SizedBox(height: getProportionateScreenHeight(15)),
-        // buildProductSearchTags(),
+        buildProductSearchTags(),
       ],
     );
   }
@@ -628,13 +642,14 @@ class _EditProductFormState extends State<EditProductForm> {
         ),
       );
     }
-    List<String?> downloadUrls = productDetails.selectedImages
+    List<String>? downloadUrls = productDetails.selectedImages
         .map((e) => e.imgType == ImageType.network ? e.path : null)
+        .cast<String>()
         .toList();
     bool productFinalizeUpdate = false;
     try {
       final updateProductFuture = ProductDatabaseHelper()
-          .updateProductsImages(productId!, downloadUrls as List<String>);
+          .updateProductsImages(productId!, downloadUrls);
       productFinalizeUpdate = await showDialog(
         context: context,
         builder: (context) {
