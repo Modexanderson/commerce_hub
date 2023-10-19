@@ -2,11 +2,11 @@ import 'package:commerce_hub/size_config.dart';
 import 'package:flutter/material.dart';
 
 class TopRoundedContainer extends StatelessWidget {
-  final Color color;
+  // final Color color;
   final Widget child;
   const TopRoundedContainer({
     Key? key,
-    this.color = Colors.white,
+    // this.color = Colors.white,
     required this.child,
   }) : super(key: key);
 
@@ -19,7 +19,7 @@ class TopRoundedContainer extends StatelessWidget {
         vertical: getProportionateScreenWidth(40),
       ),
       decoration: BoxDecoration(
-        color: color,
+        // color: color,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(64),
           topRight: Radius.circular(64),

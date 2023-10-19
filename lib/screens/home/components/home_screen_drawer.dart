@@ -6,15 +6,20 @@ import 'package:commerce_hub/screens/change_password/change_password_screen.dart
 import 'package:commerce_hub/screens/change_phone/change_phone_screen.dart';
 import 'package:commerce_hub/screens/edit_product/edit_product_screen.dart';
 import 'package:commerce_hub/screens/my_products/my_products_screen.dart';
+import 'package:commerce_hub/screens/settings/settings_screen.dart';
 import 'package:commerce_hub/services/authentification/authentification_service.dart';
 import 'package:commerce_hub/services/database/user_database_helper.dart';
 import 'package:commerce_hub/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import '../../../box_switch_tile.dart';
 import '../../../components/change_theme_button_widget.dart';
+import '../../../helpers/config.dart';
 import '../../change_display_name/change_display_name_screen.dart';
 
 class HomeScreenDrawer extends StatefulWidget {
@@ -46,8 +51,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        physics: BouncingScrollPhysics(),
+      child: Column(
         children: [
           StreamBuilder<User?>(
               stream: AuthentificationService().userChanges,
@@ -66,139 +70,137 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                   );
                 }
               }),
-          buildEditAccountExpansionTile(context),
-          // ListTile(
-          //   leading: Icon(
-          //     Icons.edit_location,
-          //   ),
-          //   title: Text(
-          //     "Manage Addresses",
-          //     style: TextStyle(fontSize: 16, color: Colors.black),
-          //   ),
-          //   onTap: () async {
-          //     bool allowed = AuthentificationService().currentUserVerified;
-          //     if (!allowed) {
-          //       final reverify = await showConfirmationDialog(context,
-          //           "You haven't verified your email address. This action is only allowed for verified users.",
-          //           positiveResponse: "Resend verification email",
-          //           negativeResponse: "Go back");
-          //       if (reverify) {
-          //         final future = AuthentificationService()
-          //             .sendVerificationEmailToCurrentUser();
-          //         await showDialog(
-          //           context: context,
-          //           builder: (context) {
-          //             return AsyncProgressDialog(
-          //               future,
-          //               message: Text("Resending verification email"),
-          //             );
-          //           },
-          //         );
-          //       }
-          //       return;
-          //     }
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => ManageAddressesScreen(),
-          //       ),
-          //     );
-          //   },
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.edit_location),
-          //   title: Text(
-          //     "My Orders",
-          //     style: TextStyle(fontSize: 16, color: Colors.black),
-          //   ),
-          //   onTap: () async {
-          //     bool allowed = AuthentificationService().currentUserVerified;
-          //     if (!allowed) {
-          //       final reverify = await showConfirmationDialog(context,
-          //           "You haven't verified your email address. This action is only allowed for verified users.",
-          //           positiveResponse: "Resend verification email",
-          //           negativeResponse: "Go back");
-          //       if (reverify) {
-          //         final future = AuthentificationService()
-          //             .sendVerificationEmailToCurrentUser();
-          //         await showDialog(
-          //           context: context,
-          //           builder: (context) {
-          //             return AsyncProgressDialog(
-          //               future,
-          //               message: Text("Resending verification email"),
-          //             );
-          //           },
-          //         );
-          //       }
-          //       return;
-          //     }
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => MyOrdersScreen(),
-          //       ),
-          //     );
-          //   },
-          // ),
-          buildSellerExpansionTile(context),
+          Expanded(
+            child: ListView(
+              children: [
+                buildEditAccountExpansionTile(context),
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.edit_location,
+                //   ),
+                //   title: Text(
+                //     "Manage Addresses",
+                //     style: TextStyle(fontSize: 16, color: Colors.black),
+                //   ),
+                //   onTap: () async {
+                //     bool allowed = AuthentificationService().currentUserVerified;
+                //     if (!allowed) {
+                //       final reverify = await showConfirmationDialog(context,
+                //           "You haven't verified your email address. This action is only allowed for verified users.",
+                //           positiveResponse: "Resend verification email",
+                //           negativeResponse: "Go back");
+                //       if (reverify) {
+                //         final future = AuthentificationService()
+                //             .sendVerificationEmailToCurrentUser();
+                //         await showDialog(
+                //           context: context,
+                //           builder: (context) {
+                //             return AsyncProgressDialog(
+                //               future,
+                //               message: Text("Resending verification email"),
+                //             );
+                //           },
+                //         );
+                //       }
+                //       return;
+                //     }
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => ManageAddressesScreen(),
+                //       ),
+                //     );
+                //   },
+                // ),
+                // ListTile(
+                //   leading: Icon(Icons.edit_location),
+                //   title: Text(
+                //     "My Orders",
+                //     style: TextStyle(fontSize: 16, color: Colors.black),
+                //   ),
+                //   onTap: () async {
+                //     bool allowed = AuthentificationService().currentUserVerified;
+                //     if (!allowed) {
+                //       final reverify = await showConfirmationDialog(context,
+                //           "You haven't verified your email address. This action is only allowed for verified users.",
+                //           positiveResponse: "Resend verification email",
+                //           negativeResponse: "Go back");
+                //       if (reverify) {
+                //         final future = AuthentificationService()
+                //             .sendVerificationEmailToCurrentUser();
+                //         await showDialog(
+                //           context: context,
+                //           builder: (context) {
+                //             return AsyncProgressDialog(
+                //               future,
+                //               message: Text("Resending verification email"),
+                //             );
+                //           },
+                //         );
+                //       }
+                //       return;
+                //     }
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => MyOrdersScreen(),
+                //       ),
+                //     );
+                //   },
+                // ),
+                buildSellerExpansionTile(context),
 
-          ListTile(
-            leading: Icon(
-              Icons.share,
-            ),
-            title: Text(
-              "Share App",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            onTap: _shareApp,
-          ),
+                ListTile(
+                  leading: Icon(
+                    Icons.share,
+                  ),
+                  title: Text(
+                    "Share App",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: _shareApp,
+                ),
 
-          ListTile(
-            leading: Icon(
-              Icons.email,
+                ListTile(
+                  leading: Icon(
+                    Icons.settings,
+                  ),
+                  title: Text(
+                    "Settings",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SettingsScreen(),
+                      ),
+                    );
+                  },
+                ),
+
+                ListTile(
+                  leading: Icon(
+                    Icons.logout,
+                  ),
+                  title: Text(
+                    "Sign out",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () async {
+                    final confirmation = await showConfirmationDialog(
+                        context, "Confirm Sign out ?");
+                    if (confirmation) AuthentificationService().signOut();
+                  },
+                ),
+              ],
             ),
-            title: Text(
-              "Report a Bug",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            onTap: _openEmail,
-          ),
-          ListTile(
-            title: const Text(
-              "Switch Mode",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            subtitle: Text(
-              "Toggle between light and dark modes",
-            ),
-            leading: Icon(
-              Icons.change_circle_outlined,
-            ),
-            trailing: ChangeThemeButtonWidget(),
-            // onTap: () {}
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.logout,
-            ),
-            title: Text(
-              "Sign out",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            onTap: () async {
-              final confirmation =
-                  await showConfirmationDialog(context, "Confirm Sign out ?");
-              if (confirmation) AuthentificationService().signOut();
-            },
           ),
         ],
       ),
@@ -207,7 +209,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
 
   UserAccountsDrawerHeader buildUserAccountsHeader(User user) {
     return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(color: kPrimaryColor),
+      decoration: BoxDecoration(),
       margin: EdgeInsets.zero,
       accountEmail: Text(
         user.email ?? "No Email",
@@ -241,8 +243,8 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
             }
           }
           return CircleAvatar(
-            backgroundColor: kTextColor,
-          );
+              // backgroundColor: kTextColor,
+              );
         },
       ),
     );
@@ -250,8 +252,8 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
 
   ExpansionTile buildEditAccountExpansionTile(BuildContext context) {
     return ExpansionTile(
-      iconColor: kPrimaryColor,
-      textColor: kPrimaryColor,
+      // iconColor: kPrimaryColor,
+      // textColor: kPrimaryColor,
       leading: Icon(
         Icons.person,
       ),
@@ -343,8 +345,8 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
 
   Widget buildSellerExpansionTile(BuildContext context) {
     return ExpansionTile(
-      iconColor: kPrimaryColor,
-      textColor: kPrimaryColor,
+      // iconColor: kPrimaryColor,
+      // textColor: kPrimaryColor,
       leading: Icon(
         Icons.business,
       ),

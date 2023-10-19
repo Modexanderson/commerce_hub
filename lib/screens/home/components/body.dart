@@ -199,7 +199,7 @@ class _BodyState extends State<Body> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
-                      physics: BouncingScrollPhysics(),
+                      
                       children: [
                         ...List.generate(
                           productCategories.length,
@@ -207,6 +207,7 @@ class _BodyState extends State<Body> {
                             return ProductTypeBox(
                               icon: productCategories[index][ICON_KEY],
                               title: productCategories[index][TITLE_KEY],
+                              
                               onPress: () {
                                 Navigator.push(
                                   context,

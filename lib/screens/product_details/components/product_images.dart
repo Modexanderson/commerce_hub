@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commerce_hub/models/Product.dart';
 import 'package:commerce_hub/screens/product_details/provider_models/ProductImageSwiper.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class ProductImages extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    // color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.all(
                       Radius.circular(30),
                     ),
@@ -48,9 +49,14 @@ class ProductImages extends StatelessWidget {
                   child: SizedBox(
                     height: SizeConfig.screenHeight! * 0.50,
                     width: SizeConfig.screenWidth! * 0.85,
-                    child: Image.network(
-                      product.images![productImagesSwiper.currentImageIndex],
-                      fit: BoxFit.contain,
+                    child: CachedNetworkImage(
+                      imageUrl: product
+                          .images![productImagesSwiper.currentImageIndex],
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                      fit: BoxFit.cover, // Adjust the image's fit
                     ),
                   ),
                 ),
@@ -80,21 +86,27 @@ class ProductImages extends StatelessWidget {
         productImagesSwiper.currentImageIndex = index;
       },
       child: Container(
-        margin:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
-        padding: EdgeInsets.all(getProportionateScreenHeight(8)),
-        height: getProportionateScreenWidth(48),
-        width: getProportionateScreenWidth(48),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-              color: productImagesSwiper.currentImageIndex == index
-                  ? kPrimaryColor
-                  : Colors.transparent),
-        ),
-        child: Image.network(product.images![index]),
-      ),
+          margin:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
+          padding: EdgeInsets.all(getProportionateScreenHeight(8)),
+          height: getProportionateScreenWidth(48),
+          width: getProportionateScreenWidth(48),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+                // color: productImagesSwiper.currentImageIndex == index
+                //     ? kPrimaryColor
+                //     : Colors.transparent
+                ),
+          ),
+          child: CachedNetworkImage(
+            imageUrl: product.images![index],
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            fit: BoxFit.contain, // Adjust the image's fit
+          )),
     );
   }
 }

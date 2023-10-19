@@ -17,7 +17,7 @@ class ProductDetailsScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => ProductActions(),
       child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        // backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(

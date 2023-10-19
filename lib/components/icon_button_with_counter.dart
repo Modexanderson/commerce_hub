@@ -31,7 +31,7 @@ class IconButtonWithCounter extends StatelessWidget {
             width: getProportionateScreenWidth(46),
             height: getProportionateScreenWidth(46),
             decoration: BoxDecoration(
-              color: kSecondaryColor.withOpacity(0.1),
+              // color: kSecondaryColor.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
             child: svgSrc != null ? SvgPicture.asset(svgSrc!) : icon,
@@ -44,7 +44,7 @@ class IconButtonWithCounter extends StatelessWidget {
                 width: getProportionateScreenWidth(20),
                 height: getProportionateScreenWidth(20),
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  // color: Colors.blue,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -52,7 +52,7 @@ class IconButtonWithCounter extends StatelessWidget {
                     "$numOfItems",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(10),
-                      color: Colors.white,
+                      // color: Colors.white,
                       height: 1,
                       fontWeight: FontWeight.w600,
                     ),

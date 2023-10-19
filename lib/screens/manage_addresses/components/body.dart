@@ -83,7 +83,7 @@ class _BodyState extends State<Body> {
                             );
                           }
                           return ListView.builder(
-                              physics: BouncingScrollPhysics(),
+                              
                               itemCount: addresses.length,
                               itemBuilder: (context, index) {
                                 return buildAddressItemCard(addresses[index]);
@@ -247,7 +247,7 @@ class _BodyState extends State<Body> {
     return Container(
       padding: EdgeInsets.only(right: 20),
       decoration: BoxDecoration(
-        color: Colors.green,
+        // color: Colors.green,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
@@ -256,13 +256,13 @@ class _BodyState extends State<Body> {
         children: [
           Icon(
             Icons.edit,
-            color: Colors.white,
+            // color: Colors.white,
           ),
           SizedBox(width: 4),
           Text(
             "Edit",
             style: TextStyle(
-              color: Colors.white,
+              // color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 15,
             ),

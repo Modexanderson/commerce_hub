@@ -27,10 +27,10 @@ class ProductTypeBox extends StatelessWidget {
           ),
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: kPrimaryColor.withOpacity(0.09),
+            // color: kPrimaryColor.withOpacity(0.09),
             borderRadius: BorderRadius.circular(15),
             border: Border.all(
-              color: kPrimaryColor.withOpacity(0.18),
+              // color: kPrimaryColor.withOpacity(0.18),
             ),
           ),
           child: Column(
@@ -43,7 +43,9 @@ class ProductTypeBox extends StatelessWidget {
                     aspectRatio: 1,
                     child: SvgPicture.asset(
                       icon,
-                      color: kPrimaryColor,
+                      color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.grey[900],
                     ),
                   ),
                 ),
@@ -52,7 +54,7 @@ class ProductTypeBox extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  color: kPrimaryColor,
+                  // color: kPrimaryColor,
                   fontSize: getProportionateScreenHeight(8),
                   fontWeight: FontWeight.w900,
                 ),

@@ -23,7 +23,7 @@ class HomeHeader extends StatelessWidget {
       children: [
         RoundedIconButton(
             iconData: Icons.menu,
-            color: Colors.grey[700],
+            // color: Colors.grey[700],
             press: () {
               Scaffold.of(context).openDrawer();
             }),
@@ -36,7 +36,8 @@ class HomeHeader extends StatelessWidget {
         ),
         SizedBox(width: 5),
         IconButtonWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
+            // svgSrc: "assets/icons/Cart Icon.svg",
+            icon: Icon(Icons.shopping_cart_outlined),
             numOfItems: 0,
             press: () {
               onCartButtonPressed();
@@ -46,7 +47,7 @@ class HomeHeader extends StatelessWidget {
             // svgSrc: Icons.favorite_border_sharp.toString(),
             icon: Icon(
               Icons.favorite_border_sharp,
-              color: Colors.grey[700],
+              // color: Colors.grey[700],
             ),
             numOfItems: 0,
             press: () {

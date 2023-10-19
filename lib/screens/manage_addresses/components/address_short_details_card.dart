@@ -35,7 +35,7 @@ class AddressShortDetailsCard extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                       decoration: BoxDecoration(
-                        color: kTextColor.withOpacity(0.24),
+                        // color: kTextColor.withOpacity(0.24),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15),
                           bottomLeft: Radius.circular(15),
@@ -45,7 +45,7 @@ class AddressShortDetailsCard extends StatelessWidget {
                         child: Text(
                           address!.title,
                           style: TextStyle(
-                            color: Colors.black,
+                            // color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
@@ -61,7 +61,9 @@ class AddressShortDetailsCard extends StatelessWidget {
                         vertical: 12,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: kTextColor.withOpacity(0.24)),
+                        border: Border.all(
+                          // color: kTextColor.withOpacity(0.24)
+                          ),
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(15),
                           bottomRight: Radius.circular(15),
@@ -74,7 +76,7 @@ class AddressShortDetailsCard extends StatelessWidget {
                           Text(
                             address.receiver,
                             style: TextStyle(
-                              color: Colors.black,
+                              // color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
@@ -97,7 +99,7 @@ class AddressShortDetailsCard extends StatelessWidget {
               child: Icon(
                 Icons.error,
                 size: 40,
-                color: kTextColor,
+                // color: kTextColor,
               ),
             );
           },

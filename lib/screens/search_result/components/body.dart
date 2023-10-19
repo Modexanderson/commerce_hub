@@ -91,7 +91,7 @@ class Body extends StatelessWidget {
           if (searchResultProductsId.length > 0) {
             return GridView.builder(
               shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
+              
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
                 childAspectRatio: 0.7,

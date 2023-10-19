@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commerce_hub/models/Product.dart';
 import 'package:commerce_hub/services/database/product_database_helper.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,13 @@ class ProductShortDetailCard extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: product!.images!.length > 0
-                          ? Image.network(
-                              product.images![0],
-                              fit: BoxFit.contain,
+                          ? CachedNetworkImage(
+                              imageUrl: product.images![0],
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              fit: BoxFit.contain, // Adjust the image's fit
                             )
                           : Text("No Image"),
                     ),
@@ -53,7 +58,7 @@ class ProductShortDetailCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
-                          color: kTextColor,
+                          // color: kTextColor,
                         ),
                         maxLines: 2,
                       ),
@@ -62,7 +67,7 @@ class ProductShortDetailCard extends StatelessWidget {
                         TextSpan(
                             text: "\N${product.discountPrice}    ",
                             style: TextStyle(
-                              color: kPrimaryColor,
+                              // color: kPrimaryColor,
                               fontWeight: FontWeight.w700,
                               fontSize: 12,
                             ),
@@ -70,7 +75,7 @@ class ProductShortDetailCard extends StatelessWidget {
                               TextSpan(
                                 text: "\N${product.originalPrice}",
                                 style: TextStyle(
-                                  color: kTextColor,
+                                  // color: kTextColor,
                                   decoration: TextDecoration.lineThrough,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 11,
@@ -92,7 +97,7 @@ class ProductShortDetailCard extends StatelessWidget {
           return Center(
             child: Icon(
               Icons.error,
-              color: kTextColor,
+              // color: kTextColor,
               size: 60,
             ),
           );

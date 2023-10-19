@@ -27,7 +27,7 @@ class ProductActionsSection extends StatelessWidget {
         Stack(
           children: [
             TopRoundedContainer(
-              color: Theme.of(context).primaryColor,
+              // color: Theme.of(context).primaryColor,
               child: ProductDescription(product: product),
             ),
             Align(
@@ -112,18 +112,20 @@ class ProductActionsSection extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(getProportionateScreenWidth(8)),
             decoration: BoxDecoration(
-              color: productDetails.productFavStatus
-                  ? Color(0xFFFFE6E6)
-                  : Color(0xFFF5F6F9),
+              // color: productDetails.productFavStatus
+              //     ? Color(0xFFFFE6E6)
+              //     : Color(0xFFF5F6F9),
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 4),
+              border: Border.all(
+                // color: Colors.white, 
+                width: 4),
             ),
             child: Padding(
               padding: EdgeInsets.all(getProportionateScreenWidth(8)),
               child: Icon(
                 Icons.favorite,
                 color: productDetails.productFavStatus
-                    ? Colors.blue
+                    ? Colors.red
                     : Color(0xFFD8DEE4),
               ),
             ),

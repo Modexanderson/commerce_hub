@@ -110,7 +110,7 @@ class _BodyState extends State<Body> {
               Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 16),
-                  physics: BouncingScrollPhysics(),
+                  
                   itemCount: cartItemsId.length,
                   itemBuilder: (context, index) {
                     if (index >= cartItemsId.length) {
@@ -205,7 +205,9 @@ class _BodyState extends State<Body> {
       ),
       margin: EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
-        border: Border.all(color: kTextColor.withOpacity(0.15)),
+        border: Border.all(
+          // color: kTextColor.withOpacity(0.15)
+        ),
         borderRadius: BorderRadius.circular(15),
       ),
       child: FutureBuilder<Product?>(
@@ -243,7 +245,7 @@ class _BodyState extends State<Body> {
                       vertical: 12,
                     ),
                     decoration: BoxDecoration(
-                      color: kTextColor.withOpacity(0.05),
+                      // color: kTextColor.withOpacity(0.05),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Column(
@@ -252,7 +254,7 @@ class _BodyState extends State<Body> {
                         InkWell(
                           child: Icon(
                             Icons.arrow_drop_up,
-                            color: kTextColor,
+                            // color: kTextColor,
                           ),
                           onTap: () async {
                             await arrowUpCallback(cartItemId);
@@ -274,7 +276,7 @@ class _BodyState extends State<Body> {
                             return Text(
                               "$itemCount",
                               style: TextStyle(
-                                color: kPrimaryColor,
+                                // color: kPrimaryColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w900,
                               ),
@@ -285,7 +287,7 @@ class _BodyState extends State<Body> {
                         InkWell(
                           child: Icon(
                             Icons.arrow_drop_down,
-                            color: kTextColor,
+                            // color: kTextColor,
                           ),
                           onTap: () async {
                             await arrowDownCallback(cartItemId);
@@ -325,7 +327,7 @@ class _BodyState extends State<Body> {
     return Container(
       padding: EdgeInsets.only(left: 20),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        // color: Colors.blue,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
@@ -334,7 +336,7 @@ class _BodyState extends State<Body> {
         children: [
           Icon(
             Icons.delete,
-            color: Colors.white,
+            // color: Colors.white,
           ),
           SizedBox(width: 4),
           Text(

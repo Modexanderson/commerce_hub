@@ -29,7 +29,7 @@ class ProductsSection extends StatelessWidget {
         vertical: 16,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        // color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
@@ -83,7 +83,7 @@ class ProductsSection extends StatelessWidget {
   Widget buildProductGrid(List<String> productsId) {
     return GridView.builder(
       shrinkWrap: true,
-      physics: BouncingScrollPhysics(),
+      
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
         childAspectRatio: 0.7,

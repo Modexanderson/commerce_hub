@@ -182,13 +182,14 @@ class _BodyState extends State<Body> {
       children: [
         Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
+            image: 
+            DecorationImage(
               image: AssetImage(bannerFromProductType()),
               fit: BoxFit.fill,
-              colorFilter: ColorFilter.mode(
-                kPrimaryColor,
-                BlendMode.hue,
-              ),
+              // colorFilter: ColorFilter.mode(
+              //   kPrimaryColor,
+              //   BlendMode.hue,
+              // ),
             ),
             borderRadius: BorderRadius.circular(30),
           ),
@@ -200,7 +201,7 @@ class _BodyState extends State<Body> {
             child: Text(
               EnumToString.convertToString(widget.productType),
               style: TextStyle(
-                color: Colors.white,
+                // color: Colors.white,
                 fontWeight: FontWeight.w900,
                 fontSize: 24,
               ),
@@ -218,11 +219,11 @@ class _BodyState extends State<Body> {
         horizontal: 8,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        // color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: GridView.builder(
-        physics: BouncingScrollPhysics(),
+        
         itemCount: productsId.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {

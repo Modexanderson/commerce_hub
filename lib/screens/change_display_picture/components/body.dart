@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
       create: (context) => ChosenImage(),
       child: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(screenPadding)),
@@ -90,7 +90,7 @@ class Body extends StatelessWidget {
         }
         return CircleAvatar(
           radius: SizeConfig.screenWidth! * 0.3,
-          backgroundColor: kTextColor.withOpacity(0.5),
+          // backgroundColor: kTextColor.withOpacity(0.5),
           backgroundImage: backImage ?? null,
         );
       },

@@ -67,12 +67,19 @@ class AddToCartFAB extends StatelessWidget {
                   Logger().i(snackbarMessage);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(snackbarMessage!),
+                      content: Text(
+                        snackbarMessage!,
+                        style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.grey[900],
+                        ),
+                      ),
                     ),
                   );
                 }
               },
-              backgroundColor: kPrimaryColor,
+              // backgroundColor: kPrimaryColor,
               label: Text(
                 "Add to Cart",
                 style: TextStyle(
@@ -103,7 +110,7 @@ class AddToCartFAB extends StatelessWidget {
                           new Text("Make sure you have whatsapp installed")));
                 }
               },
-              backgroundColor: kPrimaryColor,
+              // backgroundColor: kPrimaryColor,
               label: Text(
                 'Contact Seller and Buy Now!',
                 style: TextStyle(

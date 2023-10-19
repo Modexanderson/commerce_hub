@@ -3,17 +3,17 @@ import 'package:commerce_hub/size_config.dart';
 
 const String appName = "Commerce Hub";
 
-const kPrimaryColor = Colors.blue;
-const kPrimaryLightColor = Color(0xFFFFECDF);
-const kPrimaryGradientColor = LinearGradient(
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-  colors: [Colors.blueAccent, Color(0xFFFF7643)],
-);
-const kSecondaryColor = Color(0xFF979797);
-const kTextColor = Color(0xFF757575);
+// const kPrimaryColor = Colors.blue;
+// const kPrimaryLightColor = Color(0xFFFFECDF);
+// const kPrimaryGradientColor = LinearGradient(
+//   begin: Alignment.topLeft,
+//   end: Alignment.bottomRight,
+//   colors: [Colors.blueAccent, Color(0xFFFF7643)],
+// );
+// const kSecondaryColor = Color(0xFF979797);
+// const kTextColor = Color(0xFF757575);
 
-const kAnimationDuration = Duration(milliseconds: 200);
+// const kAnimationDuration = Duration(milliseconds: 200);
 
 const double screenPadding = 10;
 
@@ -49,6 +49,6 @@ final otpInputDecoration = InputDecoration(
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
-    borderSide: BorderSide(color: kTextColor),
+    borderSide: BorderSide(color: Colors.grey),
   );
 }

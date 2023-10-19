@@ -26,7 +26,7 @@ class AddressBox extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.white,
+                // color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: FutureBuilder<Address>(
@@ -41,7 +41,7 @@ class AddressBox extends StatelessWidget {
                             "${address?.title}",
                             style: TextStyle(
                               fontSize: 22,
-                              color: Colors.black,
+                              // color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.center,
@@ -114,7 +114,7 @@ class AddressBox extends StatelessWidget {
                     return Center(
                       child: Icon(
                         Icons.error,
-                        color: kTextColor,
+                        // color: kTextColor,
                         size: 60,
                       ),
                     );

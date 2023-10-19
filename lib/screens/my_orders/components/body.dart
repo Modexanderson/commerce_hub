@@ -88,7 +88,7 @@ class _BodyState extends State<Body> {
             );
           }
           return ListView.builder(
-            physics: BouncingScrollPhysics(),
+            
             itemCount: orderedProductsIds.length,
             itemBuilder: (context, index) {
               return FutureBuilder<OrderedProduct>(
@@ -108,7 +108,7 @@ class _BodyState extends State<Body> {
                   return Icon(
                     Icons.error,
                     size: 60,
-                    color: kTextColor,
+                    // color: kTextColor,
                   );
                 },
               );
@@ -151,7 +151,7 @@ class _BodyState extends State<Body> {
                   ),
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: kTextColor.withOpacity(0.12),
+                    // color: kTextColor.withOpacity(0.12),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
@@ -161,7 +161,7 @@ class _BodyState extends State<Body> {
                     TextSpan(
                       text: "Ordered on:  ",
                       style: TextStyle(
-                        color: Colors.black,
+                        // color: Colors.black,
                         fontSize: 12,
                       ),
                       children: [
@@ -183,7 +183,7 @@ class _BodyState extends State<Body> {
                   decoration: BoxDecoration(
                     border: Border.symmetric(
                       vertical: BorderSide(
-                        color: kTextColor.withOpacity(0.15),
+                        // color: kTextColor.withOpacity(0.15),
                       ),
                     ),
                   ),
@@ -211,7 +211,7 @@ class _BodyState extends State<Body> {
                     vertical: 2,
                   ),
                   decoration: BoxDecoration(
-                    color: kPrimaryColor,
+                    // color: kPrimaryColor,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),
@@ -297,7 +297,7 @@ class _BodyState extends State<Body> {
         return Icon(
           Icons.error,
           size: 60,
-          color: kTextColor,
+          // color: kTextColor,
         );
       },
     );

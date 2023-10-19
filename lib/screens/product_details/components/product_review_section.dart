@@ -25,7 +25,7 @@ class ProductReviewsSection extends StatelessWidget {
       child: Stack(
         children: [
           TopRoundedContainer(
-            color: Theme.of(context).primaryColor,
+            // color: Theme.of(context).primaryColor,
             child: Column(
               children: [
                 Text(
@@ -49,7 +49,7 @@ class ProductReviewsSection extends StatelessWidget {
                               children: [
                                 SvgPicture.asset(
                                   "assets/icons/review.svg",
-                                  color: kTextColor,
+                                  // color: kTextColor,
                                   width: 40,
                                 ),
                                 SizedBox(height: 8),
@@ -64,7 +64,7 @@ class ProductReviewsSection extends StatelessWidget {
                           );
                         }
                         return ListView.builder(
-                          physics: BouncingScrollPhysics(),
+                          
                           itemCount: reviewsList.length,
                           itemBuilder: (context, index) {
                             return ReviewBox(

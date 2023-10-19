@@ -20,7 +20,7 @@ class ReviewBox extends StatelessWidget {
         vertical: 4,
       ),
       decoration: BoxDecoration(
-        color: kTextColor.withOpacity(0.075),
+        // color: kTextColor.withOpacity(0.075),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(

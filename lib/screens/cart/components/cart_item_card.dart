@@ -56,13 +56,13 @@ class CartItemCard extends StatelessWidget {
                         text: "\N${snapshot.data?.originalPrice}",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: kPrimaryColor,
+                          // color: kPrimaryColor,
                         ),
                         children: [
                           TextSpan(
                             text: "  x${cartItem.itemCount}",
                             style: TextStyle(
-                              color: kTextColor,
+                              // color: kTextColor,
                             ),
                           ),
                         ]),

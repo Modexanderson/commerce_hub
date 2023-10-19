@@ -37,7 +37,7 @@ class _WishListState extends State<WishList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      // color: Colors.white,
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(

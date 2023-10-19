@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commerce_hub/components/async_progress_dialog.dart';
 import 'package:commerce_hub/components/default_button.dart';
@@ -182,8 +183,8 @@ class _EditProductFormState extends State<EditProductForm> {
     return Form(
       key: _basicDetailsFormKey,
       child: ExpansionTile(
-        iconColor: kPrimaryColor,
-        textColor: kPrimaryColor,
+        // iconColor: kPrimaryColor,
+        // textColor: kPrimaryColor,
         maintainState: true,
         title: Text(
           "Basic Details",
@@ -230,8 +231,8 @@ class _EditProductFormState extends State<EditProductForm> {
     return Form(
       key: _describeProductFormKey,
       child: ExpansionTile(
-        iconColor: kPrimaryColor,
-        textColor: kPrimaryColor,
+        // iconColor: kPrimaryColor,
+        // textColor: kPrimaryColor,
         maintainState: true,
         title: Text(
           "Describe Product",
@@ -269,7 +270,9 @@ class _EditProductFormState extends State<EditProductForm> {
         vertical: 6,
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: kTextColor, width: 1),
+        border: Border.all(
+            // color: kTextColor,
+            width: 1),
         borderRadius: BorderRadius.all(Radius.circular(28)),
       ),
       child: Consumer<ProductDetails>(
@@ -290,7 +293,7 @@ class _EditProductFormState extends State<EditProductForm> {
               "Choose Product Type",
             ),
             style: TextStyle(
-              color: kTextColor,
+              // color: kTextColor,
               fontSize: 16,
             ),
             onChanged: (value) {
@@ -306,8 +309,8 @@ class _EditProductFormState extends State<EditProductForm> {
 
   Widget buildProductSearchTagsTile() {
     return ExpansionTile(
-      iconColor: kPrimaryColor,
-      textColor: kPrimaryColor,
+      // iconColor: kPrimaryColor,
+      // textColor: kPrimaryColor,
       title: Text(
         "Search Tags",
         style: Theme.of(context).textTheme.headline6,
@@ -325,8 +328,8 @@ class _EditProductFormState extends State<EditProductForm> {
 
   Widget buildUploadImagesTile(BuildContext context) {
     return ExpansionTile(
-      iconColor: kPrimaryColor,
-      textColor: kPrimaryColor,
+      // iconColor: kPrimaryColor,
+      // textColor: kPrimaryColor,
       title: Text(
         "Upload Images",
         style: Theme.of(context).textTheme.headline6,
@@ -341,7 +344,7 @@ class _EditProductFormState extends State<EditProductForm> {
               icon: Icon(
                 Icons.add_a_photo,
               ),
-              color: kTextColor,
+              // color: kTextColor,
               onPressed: () {
                 addImageButtonCallback();
               }),
@@ -359,17 +362,23 @@ class _EditProductFormState extends State<EditProductForm> {
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: GestureDetector(
-                        onTap: () {
-                          addImageButtonCallback(index: index);
-                        },
-                        child: productDetails.selectedImages[index].imgType ==
-                                ImageType.local
-                            ? Image.memory(
-                                File(productDetails.selectedImages[index].path)
-                                    .readAsBytesSync())
-                            : Image.network(
-                                productDetails.selectedImages[index].path),
-                      ),
+                          onTap: () {
+                            addImageButtonCallback(index: index);
+                          },
+                          child: productDetails.selectedImages[index].imgType ==
+                                  ImageType.local
+                              ? Image.memory(File(
+                                      productDetails.selectedImages[index].path)
+                                  .readAsBytesSync())
+                              : CachedNetworkImage(
+                                  imageUrl:
+                                      productDetails.selectedImages[index].path,
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                  fit: BoxFit.contain, // Adjust the image's fit
+                                ),),
                     ),
                   ),
                 ),

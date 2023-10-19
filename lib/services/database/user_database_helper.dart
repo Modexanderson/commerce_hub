@@ -174,7 +174,9 @@ class UserDatabaseHelper {
     return cartItem;
   }
 
-  Future<bool> addProductToCart(String productId) async {
+  
+Future<bool> addProductToCart(String productId) async {
+  try {
     String uid = AuthentificationService().currentUser.uid;
     final cartCollectionRef = firestore
         .collection(USERS_COLLECTION_NAME)
@@ -182,14 +184,20 @@ class UserDatabaseHelper {
         .collection(CART_COLLECTION_NAME);
     final docRef = cartCollectionRef.doc(productId);
     final docSnapshot = await docRef.get();
-    bool alreadyPresent = docSnapshot.exists;
-    if (alreadyPresent == false) {
-      docRef.set(CartItem(itemCount: 1).toMap());
-    } else {
+
+    if (docSnapshot.exists) {
       docRef.update({CartItem.ITEM_COUNT_KEY: FieldValue.increment(1)});
+    } else {
+      docRef.set(CartItem(itemCount: 1).toMap());
     }
     return true;
+  } catch (e) {
+    // Handle any potential errors during the retrieval process
+    print('Error occurred: $e');
+    return false;
   }
+}
+
 
   Future<List<String>> emptyCart() async {
     String uid = AuthentificationService().currentUser.uid;

@@ -51,7 +51,7 @@ class ExpandableText extends StatelessWidget {
                         ? "See more details"
                         : "Show less details",
                     style: TextStyle(
-                      color: kPrimaryColor,
+                      // color: kPrimaryColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -59,7 +59,7 @@ class ExpandableText extends StatelessWidget {
                   Icon(
                     Icons.arrow_forward_ios,
                     size: 12,
-                    color: kPrimaryColor,
+                    // color: kPrimaryColor,
                   ),
                 ],
               ),

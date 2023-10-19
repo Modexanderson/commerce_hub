@@ -49,7 +49,7 @@ class ProductDescription extends StatelessWidget {
                       TextSpan(
                         text: "\₦${product.discountPrice}   ",
                         style: TextStyle(
-                          color: kPrimaryColor,
+                          // color: kPrimaryColor,
                           fontWeight: FontWeight.w900,
                           fontSize: 24,
                         ),
@@ -72,7 +72,7 @@ class ProductDescription extends StatelessWidget {
                       children: [
                         SvgPicture.asset(
                           "assets/icons/Discount.svg",
-                          color: kPrimaryColor,
+                          // color: kPrimaryColor,
                         ),
                         Center(
                           child: Text(

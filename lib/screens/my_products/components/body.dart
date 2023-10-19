@@ -73,7 +73,6 @@ class _BodyState extends State<Body> {
                             );
                           }
                           return ListView.builder(
-                            physics: BouncingScrollPhysics(),
                             itemCount: productsIds.length,
                             itemBuilder: (context, index) {
                               return buildProductsCard(productsIds[index]);
@@ -131,7 +130,7 @@ class _BodyState extends State<Body> {
           return Center(
             child: Icon(
               Icons.error,
-              color: kTextColor,
+              // color: kTextColor,
               size: 60,
             ),
           );
@@ -166,64 +165,14 @@ class _BodyState extends State<Body> {
       ),
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
-          final confirmation = await showConfirmationDialog(
+          bool confirmation = await showConfirmationDialog(
               context, "Are you sure to Delete Product?");
           if (confirmation) {
-            for (int i = 0; i < product.images!.length; i++) {
-              String path =
-                  ProductDatabaseHelper().getPathForProductImage(product.id, i);
-              final deletionFuture =
-                  FirestoreFilesAccess().deleteFileFromPath(path);
-              await showDialog(
-                context: context,
-                builder: (context) {
-                  return AsyncProgressDialog(
-                    deletionFuture,
-                    message: Text(
-                        "Deleting Product Images ${i + 1}/${product.images!.length}"),
-                  );
-                },
-              );
-            }
-
-            bool productInfoDeleted = false;
-            String? snackbarMessage;
-            try {
-              final deleteProductFuture =
-                  ProductDatabaseHelper().deleteUserProduct(product.id);
-              productInfoDeleted = await showDialog(
-                context: context,
-                builder: (context) {
-                  return AsyncProgressDialog(
-                    deleteProductFuture,
-                    message: Text("Deleting Product"),
-                  );
-                },
-              );
-              if (productInfoDeleted == true) {
-                snackbarMessage = "Product deleted successfully";
-              } else {
-                throw "Coulnd't delete product, please retry";
-              }
-            } on FirebaseException catch (e) {
-              Logger().w("Firebase Exception: $e");
-              snackbarMessage = "Something went wrong";
-            } catch (e) {
-              Logger().w("Unknown Exception: $e");
-              snackbarMessage = e.toString();
-            } finally {
-              Logger().i(snackbarMessage);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(snackbarMessage!),
-                ),
-              );
-            }
+            await performDeleteOperations(product);
           }
-          await refreshPage();
           return confirmation;
         } else if (direction == DismissDirection.endToStart) {
-          final confirmation = await showConfirmationDialog(
+          bool confirmation = await showConfirmationDialog(
               context, "Are you sure to Edit Product?");
           if (confirmation) {
             await Navigator.push(
@@ -235,8 +184,7 @@ class _BodyState extends State<Body> {
               ),
             );
           }
-          await refreshPage();
-          return false;
+          return confirmation;
         }
         return false;
       },
@@ -246,11 +194,35 @@ class _BodyState extends State<Body> {
     );
   }
 
+  // Function to handle deletion operations
+  Future<void> performDeleteOperations(Product product) async {
+    for (int i = 0; i < product.images!.length; i++) {
+      String path =
+          ProductDatabaseHelper().getPathForProductImage(product.id, i);
+      await FirestoreFilesAccess().deleteFileFromPath(path);
+    }
+
+    bool productInfoDeleted =
+        await ProductDatabaseHelper().deleteUserProduct(product.id);
+    String snackbarMessage = productInfoDeleted
+        ? "Product deleted successfully"
+        : "Couldn't delete product, please retry";
+
+    Logger().i(snackbarMessage);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(snackbarMessage),
+      ),
+    );
+
+    await refreshPage();
+  }
+
   Widget buildDismissiblePrimaryBackground() {
     return Container(
       padding: EdgeInsets.only(right: 20),
       decoration: BoxDecoration(
-        color: Colors.green,
+        // color: Colors.green,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
@@ -259,13 +231,13 @@ class _BodyState extends State<Body> {
         children: [
           Icon(
             Icons.edit,
-            color: Colors.white,
+            // color: Colors.white,
           ),
           SizedBox(width: 4),
           Text(
             "Edit",
             style: TextStyle(
-              color: Colors.white,
+              // color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 15,
             ),

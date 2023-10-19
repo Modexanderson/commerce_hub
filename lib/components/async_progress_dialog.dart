@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// This code is an extension to the package flutter_progress_dialog (https://pub.dev/packages/future_progress_dialog)
 
 const _DefaultDecoration = BoxDecoration(
-  color: Colors.white,
+  // color: Colors.white,
   shape: BoxShape.rectangle,
   borderRadius: BorderRadius.all(Radius.circular(10)),
 );

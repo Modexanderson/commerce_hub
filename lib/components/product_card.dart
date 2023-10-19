@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commerce_hub/services/database/product_database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,8 +21,10 @@ class ProductCard extends StatelessWidget {
       onTap: press,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          border: Border.all(color: kTextColor.withOpacity(0.15)),
+          // color: Theme.of(context).primaryColor,
+          border: Border.all(
+              // color: kTextColor.withOpacity(0.15)
+              ),
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10)),
@@ -47,7 +50,7 @@ class ProductCard extends StatelessWidget {
               return Center(
                 child: Icon(
                   Icons.error,
-                  color: kTextColor,
+                  // color: kTextColor,
                   size: 60,
                 ),
               );
@@ -64,11 +67,12 @@ class ProductCard extends StatelessWidget {
       children: [
         Flexible(
           flex: 2,
-          child: Container(
-            child: Image.network(
-              product.images![0],
-              fit: BoxFit.fill,
-            ),
+          child: CachedNetworkImage(
+            imageUrl: product.images![0],
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            fit: BoxFit.cover, // Adjust the image's fit
           ),
         ),
         SizedBox(height: 10),
@@ -112,7 +116,7 @@ class ProductCard extends StatelessWidget {
                         TextSpan(
                           text: "\₦ ${product.discountPrice}\n",
                           style: TextStyle(
-                            color: kPrimaryColor,
+                            // color: kPrimaryColor,
                             overflow: TextOverflow.ellipsis,
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
@@ -136,7 +140,7 @@ class ProductCard extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             "assets/icons/DiscountTag.svg",
-                            color: kPrimaryColor,
+                            // color: kPrimaryColor,
                           ),
                           Center(
                             child: Text(
