@@ -88,7 +88,6 @@ class _BodyState extends State<Body> {
             );
           }
           return ListView.builder(
-            
             itemCount: orderedProductsIds.length,
             itemBuilder: (context, index) {
               return FutureBuilder<OrderedProduct>(
@@ -183,8 +182,8 @@ class _BodyState extends State<Body> {
                   decoration: BoxDecoration(
                     border: Border.symmetric(
                       vertical: BorderSide(
-                        // color: kTextColor.withOpacity(0.15),
-                      ),
+                          // color: kTextColor.withOpacity(0.15),
+                          ),
                     ),
                   ),
                   child: ProductShortDetailCard(

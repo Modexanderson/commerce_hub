@@ -22,7 +22,6 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: getProportionateScreenWidth(screenPadding)),
@@ -49,8 +48,8 @@ class Body extends StatelessWidget {
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                     child: CircularProgressIndicator(
-                  // color: kPrimaryColor,
-                ));
+                        // color: kPrimaryColor,
+                        ));
               } else if (snapshot.hasError) {
                 final error = snapshot.error.toString();
                 Logger().e(error);

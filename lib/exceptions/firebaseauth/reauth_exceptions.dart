@@ -2,13 +2,13 @@ import 'package:commerce_hub/exceptions/firebaseauth/messeged_firebaseauth_excep
 
 class FirebaseReauthException extends MessagedFirebaseAuthException {
   FirebaseReauthException(
-      {String message: "Instance of FirebaseReauthException"})
+      {String message = "Instance of FirebaseReauthException"})
       : super(message);
 }
 
 class FirebaseReauthUserMismatchException extends FirebaseReauthException {
   FirebaseReauthUserMismatchException(
-      {String message: "User not matching with current user"})
+      {String message = "User not matching with current user"})
       : super(message: message);
 }
 

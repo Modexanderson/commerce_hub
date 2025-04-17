@@ -188,7 +188,7 @@ class _EditProductFormState extends State<EditProductForm> {
         maintainState: true,
         title: Text(
           "Basic Details",
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         leading: Icon(
           Icons.shop,
@@ -236,7 +236,7 @@ class _EditProductFormState extends State<EditProductForm> {
         maintainState: true,
         title: Text(
           "Describe Product",
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         leading: Icon(
           Icons.description,
@@ -313,7 +313,7 @@ class _EditProductFormState extends State<EditProductForm> {
       // textColor: kPrimaryColor,
       title: Text(
         "Search Tags",
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.headlineMedium,
       ),
       leading: Icon(Icons.check_circle_sharp),
       childrenPadding:
@@ -332,7 +332,7 @@ class _EditProductFormState extends State<EditProductForm> {
       // textColor: kPrimaryColor,
       title: Text(
         "Upload Images",
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.headlineMedium,
       ),
       leading: Icon(Icons.image),
       childrenPadding:
@@ -362,23 +362,24 @@ class _EditProductFormState extends State<EditProductForm> {
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: GestureDetector(
-                          onTap: () {
-                            addImageButtonCallback(index: index);
-                          },
-                          child: productDetails.selectedImages[index].imgType ==
-                                  ImageType.local
-                              ? Image.memory(File(
-                                      productDetails.selectedImages[index].path)
-                                  .readAsBytesSync())
-                              : CachedNetworkImage(
-                                  imageUrl:
-                                      productDetails.selectedImages[index].path,
-                                  placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                  fit: BoxFit.contain, // Adjust the image's fit
-                                ),),
+                        onTap: () {
+                          addImageButtonCallback(index: index);
+                        },
+                        child: productDetails.selectedImages[index].imgType ==
+                                ImageType.local
+                            ? Image.memory(
+                                File(productDetails.selectedImages[index].path)
+                                    .readAsBytesSync())
+                            : CachedNetworkImage(
+                                imageUrl:
+                                    productDetails.selectedImages[index].path,
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                                fit: BoxFit.contain, // Adjust the image's fit
+                              ),
+                      ),
                     ),
                   ),
                 ),

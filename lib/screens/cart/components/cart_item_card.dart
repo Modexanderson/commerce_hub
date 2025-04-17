@@ -4,7 +4,6 @@ import 'package:commerce_hub/services/database/product_database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class CartItemCard extends StatelessWidget {
@@ -62,8 +61,8 @@ class CartItemCard extends StatelessWidget {
                           TextSpan(
                             text: "  x${cartItem.itemCount}",
                             style: TextStyle(
-                              // color: kTextColor,
-                            ),
+                                // color: kTextColor,
+                                ),
                           ),
                         ]),
                   ),

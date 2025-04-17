@@ -11,15 +11,10 @@ import 'package:commerce_hub/services/authentification/authentification_service.
 import 'package:commerce_hub/services/database/user_database_helper.dart';
 import 'package:commerce_hub/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import '../../../box_switch_tile.dart';
-import '../../../components/change_theme_button_widget.dart';
-import '../../../helpers/config.dart';
 import '../../change_display_name/change_display_name_screen.dart';
 
 class HomeScreenDrawer extends StatefulWidget {

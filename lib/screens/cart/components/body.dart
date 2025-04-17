@@ -110,7 +110,6 @@ class _BodyState extends State<Body> {
               Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 16),
-                  
                   itemCount: cartItemsId.length,
                   itemBuilder: (context, index) {
                     if (index >= cartItemsId.length) {
@@ -206,8 +205,8 @@ class _BodyState extends State<Body> {
       margin: EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
         border: Border.all(
-          // color: kTextColor.withOpacity(0.15)
-        ),
+            // color: kTextColor.withOpacity(0.15)
+            ),
         borderRadius: BorderRadius.circular(15),
       ),
       child: FutureBuilder<Product?>(

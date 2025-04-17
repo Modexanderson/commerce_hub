@@ -13,8 +13,6 @@ import 'constants.dart';
 import 'helpers/config.dart';
 import 'theme/app_theme.dart';
 
-
-
 Future<void> openHiveBox(String boxName, {bool limit = false}) async {
   final box = await Hive.openBox(boxName).onError((error, stackTrace) async {
     final Directory dir = await getApplicationDocumentsDirectory();
@@ -22,8 +20,8 @@ Future<void> openHiveBox(String boxName, {bool limit = false}) async {
     File dbFile = File('$dirPath/$boxName.hive');
     File lockFile = File('$dirPath/$boxName.lock');
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-      dbFile = File('$dirPath/Audify/$boxName.hive');
-      lockFile = File('$dirPath/Audify/$boxName.lock');
+      dbFile = File('$dirPath/commerceHub/$boxName.hive');
+      lockFile = File('$dirPath/commerceHub/$boxName.lock');
     }
     await dbFile.delete();
     await lockFile.delete();
@@ -37,23 +35,21 @@ Future<void> openHiveBox(String boxName, {bool limit = false}) async {
   GetIt.I.registerSingleton<MyTheme>(MyTheme());
 }
 
-
 class App extends StatefulWidget {
   @override
   State<App> createState() => _AppState();
 }
 
 class _AppState extends State<App> {
-  
   @override
   void initState() {
     super.initState();
-    
 
     AppTheme.currentTheme.addListener(() {
       setState(() {});
     });
   }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -82,17 +78,17 @@ class _AppState extends State<App> {
     //       final themeProvider = Provider.of<ThemeProvider>(
     //         context,
     //       );
-          return MaterialApp(
-              title: appName,
-              debugShowCheckedModeBanner: false,
-              themeMode: AppTheme.themeMode,
-      theme: AppTheme.lightTheme(
-        context: context,
-      ),
-      darkTheme: AppTheme.darkTheme(
-        context: context,
-      ),
-              home: AuthentificationWrapper());
-        }
+    return MaterialApp(
+        title: appName,
+        debugShowCheckedModeBanner: false,
+        themeMode: AppTheme.themeMode,
+        theme: AppTheme.lightTheme(
+          context: context,
+        ),
+        darkTheme: AppTheme.darkTheme(
+          context: context,
+        ),
+        home: AuthentificationWrapper());
+  }
 }
 // }

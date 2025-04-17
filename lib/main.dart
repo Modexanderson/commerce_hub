@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'app.dart';
 import 'firebase_options.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.remove();
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await Hive.initFlutter('Commerce Hub');
   } else {
@@ -21,7 +23,9 @@ Future<void> main() async {
     MobileAds.instance.initialize();
   }
   await openHiveBox('settings');
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(App());
 }

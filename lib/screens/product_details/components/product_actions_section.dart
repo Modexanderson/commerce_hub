@@ -117,8 +117,8 @@ class ProductActionsSection extends StatelessWidget {
               //     : Color(0xFFF5F6F9),
               shape: BoxShape.circle,
               border: Border.all(
-                // color: Colors.white, 
-                width: 4),
+                  // color: Colors.white,
+                  width: 4),
             ),
             child: Padding(
               padding: EdgeInsets.all(getProportionateScreenWidth(8)),

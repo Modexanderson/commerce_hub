@@ -2,7 +2,7 @@ import 'package:commerce_hub/exceptions/firebaseauth/messeged_firebaseauth_excep
 
 class FirebaseSignUpAuthException extends MessagedFirebaseAuthException {
   FirebaseSignUpAuthException(
-      {String message: "Instance of FirebaseSignUpAuthException"})
+      {String message = "Instance of FirebaseSignUpAuthException"})
       : super(message);
 }
 

@@ -64,7 +64,6 @@ class ProductReviewsSection extends StatelessWidget {
                           );
                         }
                         return ListView.builder(
-                          
                           itemCount: reviewsList.length,
                           itemBuilder: (context, index) {
                             return ReviewBox(

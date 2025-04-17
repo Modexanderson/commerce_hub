@@ -13,7 +13,6 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: getProportionateScreenWidth(screenPadding)),
